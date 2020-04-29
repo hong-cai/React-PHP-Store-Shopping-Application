@@ -157,7 +157,7 @@ text-transform:capitalize;
     overflow: hidden;
 }
 
-.hover-cart-item-details .hover-price{
+.hover-cart-item-details .reg-price{
     /* background:pink; */
     padding:0;
     margin:0;

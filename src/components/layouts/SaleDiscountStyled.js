@@ -1,9 +1,19 @@
 import styled from 'styled-components';
 
 const SaleDiscountStyled = styled.div`
-h5{
+.price-div{
+    display:flex;
+    flex-direction:row;
+    .reg-price{
+    text-decoration:line-through;
+    text-decoration-color:var(--main-red);
+}
+.reg-disprice{
     color:var(--main-red);
 }
+}
+
+
 
 .discount {
     position: relative;

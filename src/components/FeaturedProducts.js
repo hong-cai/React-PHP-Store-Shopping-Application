@@ -68,6 +68,7 @@ export default class FeaturedProducts extends Component {
                         className="horizontal-scroll-inner px-0" >
                         <ProductConsumer>
                             {value => {
+                                {/* console.log(value); */ }
                                 return (
                                     value.featuredProducts.map(
                                         item => {

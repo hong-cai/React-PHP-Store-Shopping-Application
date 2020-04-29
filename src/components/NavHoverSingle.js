@@ -18,7 +18,7 @@ export const NavHoverSingle = (props) => {
                 </div>
                 <div className="hover-cart-item-details">
                     <Link to={`/products/${postName}`}><div className="hover-title">{title}</div></Link>
-                    <div className="hover-price">
+                    <div className="reg-price">
                         {onSale === true ? <SaleDiscount price={price} salePrice={salePrice} /> : <h6>${price.toLocaleString("en-US", { style: "currency", currency: "USD" })}</h6>}
                     </div>
                 </div>

@@ -9,6 +9,7 @@ import { MdFilterList } from 'react-icons/md';
 import { GiHeartPlus } from 'react-icons/gi';
 import { AiOutlineClose } from 'react-icons/ai';
 import { FaShoppingCart } from 'react-icons/fa';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 export default class Navbar extends Component {
     constructor(props) {
@@ -27,7 +28,7 @@ export default class Navbar extends Component {
 
 
     collapseNavHover(e) {
-        console.log('this.node', this.node, 'contains', e.target, this.node.contains(e.target));
+        // console.log('this.node', this.node, 'contains', e.target, this.node.contains(e.target));
         if (this.node && this.node.contains(e.target)) {
             return;
         }
@@ -130,7 +131,7 @@ export default class Navbar extends Component {
                                         {value => {
                                             {/* console.log(value); */ }
                                             return value.cart.length > 0 ? (
-                                                <div>
+                                                <Scrollbars style={{ width: 500, height: 300 }}>
                                                     {value.cart.map(
                                                         product => <NavHoverSingle key={product.id} removeItem={value.removeItem} extractProps={product} handleCount={value.handleCount} />
                                                     )}
@@ -139,7 +140,7 @@ export default class Navbar extends Component {
                                                             Go To Cart
             </ButtonStyled3>
                                                     </NavLink>
-                                                </div>
+                                                </Scrollbars>
                                             ) :
                                                 (<><h5>There is nothing in ur shopping cart</h5>
                                                     <ButtonStyled3 className="shopping-cart-btn">

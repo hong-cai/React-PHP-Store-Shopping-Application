@@ -7,6 +7,7 @@
     "axios": "^0.19.2",
     "lodash": "^4.17.15",
     "react": "^16.9.0",
+    "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.9.0",
     "react-html-parser": "^2.0.2",
     "react-icons": "^3.9.0",
@@ -14,6 +15,7 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
     "react-spring": "^8.0.27",
+    "react-transition-group": "^4.3.0",
     "styled-components": "^4.3.2",
     "why-did-you-update": "^1.0.6"
   },
@@ -21,7 +23,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postcss": "postcss input.css -u postcss-prefixer -o output.css"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -41,6 +44,8 @@
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.10.2",
     "babel-loader": "^8.1.0",
+    "postcss-cli": "^7.1.0",
+    "postcss-prefixer": "^2.1.2",
     "webpack-cli": "^3.3.11"
   }
 }
