@@ -61,7 +61,7 @@
     "webpack-cli": "^3.3.11"
   },
   "description": "- Bootstrap,\r - Context,\r - React,\r - PHP,\r - Mysql,",
-  "main": "webpack.config.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hong-cai/React-Store-Shopping-Application.git"
@@ -80,5 +80,5 @@
   "bugs": {
     "url": "https://github.com/hong-cai/React-Store-Shopping-Application/issues"
   },
-  "homepage": "https://hong-cai.github.io/React-Store-Shopping-Application.git"
+  "homepage": "https://hong-cai.github.io/React-Store-Shopping-Application/"
 }
