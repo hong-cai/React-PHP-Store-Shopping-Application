@@ -64,7 +64,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hong-cai/React-Store-Shopping-Application.git"
+    "url": "git+git@github.com:hong-cai/React-Store-Shopping-Application.git "
   },
   "keywords": [
     "react",
