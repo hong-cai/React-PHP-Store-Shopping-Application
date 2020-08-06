@@ -1,26 +1,22 @@
-import React, { Component } from 'react';
-import ProductList from './components/ProductList';
+import React from 'react';
+import FilteredProductList from './components/Products/FilteredProductList';
 import Title from './components/Title';
 import Filter from './components/Filter';
 
-class Shop extends Component {
+const Shop = () => {
 
-    render() {
-        return (
-            <div className="container-fluid">
-                <Title name='company' title='shop' />
-                <Title name='company' title='products' />
-                <section className="container-fluid">
-                    <div className="row">
-                        <div className="d-flex justify-content-center">
-                            <Filter />
-                            <ProductList />
-                        </div>
-                    </div>
-                </section>
-            </div>
-        );
-    }
+    return (
+        <div className="container-fluid">
+            <Title name='company' title='shop' />
+            <Title name='company' title='products' />
+            <section className="container">
+                <div className="row d-flex justify-content-center mx-auto">
+                    <Filter />
+                    <FilteredProductList />
+                </div>
+            </section>
+        </div>
+    );
 }
 
 export default Shop;

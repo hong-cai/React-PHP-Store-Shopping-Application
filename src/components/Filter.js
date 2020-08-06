@@ -1,6 +1,7 @@
 import React from 'react';
 import { useContext } from 'react';
 import { ProductContext } from '../context';
+import PropTypes from 'prop-types';
 import ButtonStyled2 from '../components/layouts/ButtonStyled2';
 
 export const Filter = () => {
@@ -15,18 +16,20 @@ export const Filter = () => {
         }
     }
     );
+
     tempCategory = ['All', ...tempCategory];
     // console.log(tempCategory.flat());
     const categories = [...new Set(tempCategory.flat())];
     // console.log(category);
 
     return (
-        <div className="filters col-xl-3 col-4 col-md-3 col-sm-4 col-xm-5 border border-info m-5 m-sm-3 p-4">
+        <div className="filters  border border-info m-5 m-sm-3 p-4">
             <h4>Filter:</h4>
             <div className="form-group">
                 <label htmlFor="search">Find a product:</label>
                 <input type="text" name="search" placeholder="Search..." value={search} className="form-control" onChange={handleChange} />
             </div>
+
             {/* Filtering Category */}
             <div className="form-group">
                 <label htmlFor="category">Category:</label>
@@ -40,6 +43,7 @@ export const Filter = () => {
             </div>
             {/*End of Filtering Category */}
 
+
             {/* Filteriing Price */}
             <div className="form-group">
                 <div className="form-inline">
@@ -49,7 +53,6 @@ export const Filter = () => {
                     <input className="form-control col-3 mx-1" name="maxPrice" id="priceRange" type="number" onFocus={(e) => e.target.value = ""} placeholder="" value={maxPrice} onChange={handleChange} />
                 </div>
             </div>
-
             {/*End of Filtering Price */}
 
 
@@ -61,11 +64,20 @@ export const Filter = () => {
                     <input type="checkbox" className='checkbox-wrapper' id="onSale" checked={onSale} onChange={handleChange} name="onSale" />
                 </div>
             </div>
-
-
             {/*End of Filtering On Sale */}
         </div >
     )
+};
+
+Filter.propTypes = {
+    products: PropTypes.array,
+    handleChange: PropTypes.func,
+    category: PropTypes.string,
+    minPrice: PropTypes.string,
+    maxPrice: PropTypes.string,
+    price: PropTypes.string,
+    onSale: PropTypes.bool,
+    search: PropTypes.string
 }
 
 export default Filter;

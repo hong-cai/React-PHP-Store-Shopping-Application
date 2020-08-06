@@ -55,20 +55,24 @@ text-transform:capitalize;
     /* --------Hover Cart-------- */
     .hover-cart-wrapper{
         position:absolute;
-        right:0;
+        right:5px;
         /* background:pink; */
         width:360px;
+        height:450px;
+        background: var(--light-color);
+        border-radius: 5px;
     }
     .hover-cart {
         color:var(--main-dark);
       /* visibility:visible; */
     position: relative;
-    background: var(--light-color);
+    /* background: var(--light-color); */
     min-width: 350px;
     width: 30%;
-    display: flex;
-    flex-direction: column;
-    border-radius: 5px;
+    min-height:400px;
+    display: grid;
+    grid-column-gap:10px;
+    /* flex-direction: column; */
     padding: 20px;
     margin: 5px;
     right:0;
@@ -77,7 +81,7 @@ text-transform:capitalize;
     text-transform:capitalize;
     border:1px solid var(--light-color)
 }
-.hover-cart:before{
+.hover-cart-wrapper:before{
         content:'';
         width:0;
     height: 0;
@@ -92,19 +96,19 @@ text-transform:capitalize;
     }
 
 
-    .close-hover{
-        position:absolute;
-        top:1%;
-        right:11%;
-        font-size:1.2rem;
-    }
-
-    .hover-cart-details {
+        .hover-cart-details {
     display: grid;
     grid-template-columns: 2.5fr 0.5fr;
     border-bottom:1px dotted var(--main-background);
-    
+    :hover{
+        background:var(--main-color);
+        border-radius:5px;
+    }
+    a {
+        bottom:0;
+    }
 }
+
 
 .hover-cart-item {
     display: grid;
@@ -119,16 +123,7 @@ text-transform:capitalize;
 }
 
 
-.arrow {
-    width: 0;
-    height: 0;
-    border-bottom: 10px solid moccasin;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    position: absolute;
-    left: 50%;
-    top: 0px;
-}
+
 
 .img-div {
     width: 60px;
@@ -158,9 +153,12 @@ text-transform:capitalize;
 }
 
 .hover-cart-item-details .reg-price{
-    /* background:pink; */
     padding:0;
     margin:0;
+}
+
+.hover-cart-item-details .discount{
+    display:none;
 }
 
 .remove {

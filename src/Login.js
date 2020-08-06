@@ -89,8 +89,26 @@ class Login extends Component {
     };
 
 
-    validateLogin = () => {
-
+    validateLogin = (e) => {
+        let target = e.target;
+        const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,4})$/i;
+        let errorMessage = '';
+        if (target.name === "email") {
+            if (!emailCheck.test(target.value)) {
+                errorMessage += 'Please input a valid email';
+            }
+            this.setState({
+                emailError: errorMessage
+            });
+        };
+        if (target.name === "password") {
+            if (!emailCheck.test(target.value)) {
+                errorMessage += 'Please input a valid email';
+            }
+            this.setState({
+                emailError: errorMessage
+            });
+        };
     }
 
     render() {

@@ -1,4 +1,4 @@
-/* *********** General Setting *********** */
+/* *********** Global Settings *********** */
 
 :root {
   --main-color: #FFC72A;
@@ -10,20 +10,29 @@
   --main-yellow: #F3D250;
   --main-red: #F78888;
   --main-shade: rgba(14, 173, 175, 0.13);
+  --main-transition: all 0.3s linear;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   font-family: 'Oswald', sans-serif;
   letter-spacing: 1px;
   background: url('./img/bg-spittle-texture.jpg') repeat;
-  background-size: 549px 547px;
   background-color: var(--main-background);
   color: var(--main-dark)!important;
-  box-sizing: border-box;
 }
 
-h5, h6, p, a, label {
+a {
   font-family: 'Oswald', sans-serif;
+}
+
+h5, h6, p, label {
+  font-family: 'Roboto', sans-serif;
   margin: 0 2px;
 }
 
@@ -72,6 +81,148 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
   height: 1.25rem;
 }
 
+/************ Loader Styles *************/
+
+@-webkit-keyframes shape-1 {
+  0% {
+    top: 65px;
+    height: 40px;
+  }
+  50% {
+    top: 75px;
+    height: 25px
+  }
+  100% {
+    top: 70px;
+    height: 25px;
+  }
+}
+
+@keyframes shape-1 {
+  0% {
+    top: 65px;
+    height: 40px;
+  }
+  50% {
+    top: 75px;
+    height: 25px;
+  }
+  100% {
+    top: 70px;
+    height: 25px;
+  }
+}
+
+@-webkit-keyframes shape-2 {
+  0% {
+    top: 65px;
+    height: 40px
+  }
+  50% {
+    top: 75px;
+    height: 25px
+  }
+  100% {
+    top: 70px;
+    height: 25px
+  }
+}
+
+@keyframes shape-2 {
+  0% {
+    top: 65px;
+    height: 40px
+  }
+  50% {
+    top: 75px;
+    height: 25px
+  }
+  100% {
+    top: 70px;
+    height: 25px
+  }
+}
+
+@-webkit-keyframes shape-3 {
+  0% {
+    top: 65px;
+    height: 35px
+  }
+  50% {
+    top: 75px;
+    height: 25px
+  }
+  100% {
+    top: 70px;
+    height: 25px
+  }
+}
+
+@keyframes shape-3 {
+  0% {
+    top: 65px;
+    height: 35px
+  }
+  50% {
+    top: 75px;
+    height: 25px
+  }
+  100% {
+    top: 70px;
+    height: 25px
+  }
+}
+
+.shape div {
+  position: absolute;
+  width: 36.3px
+}
+
+.shape div:nth-child(1) {
+  left: 23.099999999999998px;
+  background: var(--main-red);
+  -webkit-animation: shape-1 0.7518796992481203s cubic-bezier(0, 0.5, 0.5, 1)infinite;
+  animation: shape-1 0.7518796992481203s cubic-bezier(0, 0.5, 0.5, 1)infinite;
+  -webkit-animation-delay: -0.15037593984962405s;
+  animation-delay: -0.15037593984962405s
+}
+
+.shape div:nth-child(2) {
+  left: 64.35px;
+  background: var(--main-color);
+  -webkit-animation: shape-2 0.7518796992481203s cubic-bezier(0, 0.5, 0.5, 1)infinite;
+  animation: shape-2 0.7518796992481203s cubic-bezier(0, 0.5, 0.5, 1)infinite;
+  -webkit-animation-delay: -0.07518796992481203s;
+  animation-delay: -0.07518796992481203s
+}
+
+.shape div:nth-child(3) {
+  left: 105.6px;
+  background: var(--main-dark);
+  -webkit-animation: shape-3 0.7518796992481203s cubic-bezier(0, 0.5, 0.5, 1)infinite;
+  animation: shape-3 0.7518796992481203s cubic-bezier(0, 0.5, 0.5, 1)infinite;
+}
+
+.spinner-pulse {
+  width: 165px;
+  height: 165px;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.shape {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0)scale(1);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.shape div {
+  box-sizing: content-box;
+}
+
 /************ Cart Page Css *************/
 
 .checkbox-wrapper {
@@ -82,7 +233,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 
 .img-fluid {
   max-width: 60px !important;
-  background: pink;
 }
 
 /************* Product Detail Layout *************/
@@ -99,7 +249,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 .left-column {
   width: 40%;
   position: relative;
-  margin-top: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -107,7 +256,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 
 .right-column {
   width: 60%;
-  margin-top: 60px;
   padding: 3%;
 }
 
@@ -145,14 +293,14 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
   content: attr(data-tooltip);
   font-size: .7rem;
   position: absolute;
-  bottom: 28%;
-  right: -15%;
-  display: none;
+  bottom: 20%;
+  right: -5%;
+  opacity: 0;
+  transition: all .1s ease-in;
 }
 
 .card-title:hover:after {
-  display: block;
-  transition: all .5s ease-in;
+  opacity: 1;
 }
 
 /************* End of Single Product Card *************/
@@ -289,13 +437,13 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 
 @media (max-width: 991px) {
   .container {
-    max-width: 98% !important;
+    max-width: 100% !important;
   }
 }
 
 @media screen and (max-width: 896px) {
   .filters {
-    position: fixed;
+    width: 100%;
   }
   .right-column h1 {
     font-size: 2rem;

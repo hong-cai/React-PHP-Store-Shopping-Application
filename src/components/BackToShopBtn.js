@@ -1,13 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ButtonStyled from '../components/layouts/ButtonStyled';
-
-export const BackToShopBtn = () => {
+import { AiOutlineDoubleLeft } from 'react-icons/ai';
+export const BackToShopBtn = ({ location }) => {
     return (
-        <div className="p-3">
-            <Link to="/shop">
-                <p className="text-center"> <i className="fa fa-arrow-left" aria-hidden="true"></i> Back To the Shop</p>
-            </Link>
-        </div>
+        <div className="row mb-0">
+            <div className="p-3">
+                <Link to={`/${location}`}>
+                    <p className="text-center"> <AiOutlineDoubleLeft /> Back To the {location}</p>
+                </Link>
+            </div>
+        </div >
     )
 }

@@ -7,10 +7,10 @@ const ProductWrapper = styled.div`
         overflow:hidden;
     }
     .cart-img-top{
-        transition:all 0.5s linear;
+        transition:all 0.3s linear;
     }
     .img-container:hover .cart-img-top{
-        transform:scale(1.2);
+        transform:scale(1.1);
     }
 
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 /* Directly Import An Array */
-import { storeProducts, detailProduct } from './data';
+import { storeProducts, defaultProduct } from './data';
 import { log } from 'util';
 import axios from 'axios';
 
@@ -10,18 +10,26 @@ class ProductProvider extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            /*Products and cart before loading*/
             products: [],
             cart: [],
+
+            /*Loading loader and limited products list*/
+            loading: true,
+            limit: 12,
+            page: 0,
 
             /*featuredProducts on Home page*/
             featuredProducts: [],
 
+            /*Dynamic product postName for single product info*/
+            postName: "",
             /*details for single product display*/
-            detailedProduct: detailProduct,
+            detailedProduct: defaultProduct,
 
             /*modal for Add To Cart button*/
             modalOpen: false,
-            modalProduct: "",
+            modalProduct: defaultProduct,
 
             /*cart summary*/
             cartSubTotal: 0,
@@ -48,9 +56,11 @@ class ProductProvider extends Component {
 
             /*Login State*/
             loggedIn: false,
-            user: {}
+            user: {},
+
         };
     }
+
 
     handleLogin = (userData) => {
         sessionStorage.userData ?
@@ -73,29 +83,51 @@ class ProductProvider extends Component {
         };
     }
 
+    //Check if user has logged in
     checkLoginStatus = () => {
-        axios.get('http://localhost/reactBegin/react-php/index.php?tp=login')
-            .then(result => console.log(result))
-
-        this.setState({
-            loggedIn: true,
-            user: sessionStorage.userData
-        }, sessionStorage.removeItem('userData')
-        )
+        if (!sessionStorage.getItem('userData')) {
+            this.setState({
+                loggedIn: false,
+                user: {}
+            })
+        } else {
+            this.setState({
+                loggedIn: true,
+                user: sessionStorage.getItem('userData')
+            }, localStorage.setItem('userData'))
+        }
     }
 
-    //function to be used by findDetail() and addToCart() modal
+    //function to be used by findDetails() and addToCart() modal
     getProduct = (products, id) => {
         const oneProduct = products.find(item => item.id == id);
         return oneProduct;
     };
 
 
-    findDetail = postName => {
+    findDetails = postName => {
         const productDetail = this.state.products.find(item => item.postName === postName);
+        console.log(productDetail);
+        return productDetail ? productDetail : false;
         // console.log(productDetail);
-        return productDetail;
+        /*********************
+         * Real find product detail: Post Data to Server and get response
+         * ******************/
+        // searchDetail=async userID=>{
+        //     const response = await axios.get(
+        //         `https//api/users?q=${userID}?client_id=${SECRET}`
+        //     );
+        //     this.setState({user:response.data,loading:false})
+        // }
     };
+
+    handleProductDetail = postName => {
+        // console.log('clicked the image: ', postName);
+        const thisProduct = this.findDetails(postName) != false ? this.findDetails(postName) : defaultProduct;
+        this.setState(() => {
+            return { detailedProduct: thisProduct }
+        })
+    }
 
     //NOT JUST ADD ONE ITEM TO CART BUT THE WHOLE CART 
     addOneItemToCart = (id) => {
@@ -140,10 +172,10 @@ class ProductProvider extends Component {
     };
 
     openModal = id => {
-        const oneProduct = this.getProduct(this.state.products, id);
+        const addedProduct = this.getProduct(this.state.products, id);
         this.setState(() => {
             return {
-                modalProduct: oneProduct,
+                modalProduct: addedProduct,
                 modalOpen: true
             };
         });
@@ -188,13 +220,11 @@ class ProductProvider extends Component {
             cart: tempCart
         }, () => {
             this.saveCartToStorage(tempCart);
-            console.log(tempCart);
         })
 
     }
 
     clearCart = () => {
-        // console.log(this.state.cart);
         this.state.cart.forEach(
             product => {
                 product.count = 0;
@@ -211,8 +241,6 @@ class ProductProvider extends Component {
     }
 
     removeItem = (id) => {
-        // console.log(this.state.cart);
-        // console.log(id);
         let newCart = [...this.state.cart];
         let currProduct = this.getProduct(newCart, id);
         currProduct.count = 0;
@@ -232,7 +260,6 @@ class ProductProvider extends Component {
 
     taxTotal = () => {
         let tempCart = this.state.checkoutCart;
-        // console.log('tempCart: ', tempCart);
         let tempSubTotal = 0;
         tempCart.map(item => { tempSubTotal += parseFloat(item.total); });
         let subTotal = tempSubTotal.toFixed(2);
@@ -263,22 +290,78 @@ class ProductProvider extends Component {
         return cart;
     }
 
+    //Split large products array into limited number arrays and display when scrolling list
+    separateProducts = (products) => {
+        console.log(products);
+        let limit = 12;
+        //Divide the products list into smaller array with 12 items each
+        let newList = [];
+        for (var i = 0; i < products.length; i += limit) {
+            var oneItem = products.slice(i, i + limit);
+            newList.push(oneItem);
+        }
+        return newList;
+    }
+
+    loadSmallList = (products, page) => {
+        let newList = this.separateProducts(products);
+        let loadedProducts = newList[page];
+        return loadedProducts;
+    }
 
 
+    waitForResult = (products, page, seconds) => {
+        return new Promise(resolve => {
+            let loadedProducts = this.loadSmallList(products, this.state.page);
+            if (page < loadedProducts.length) {
+                setTimeout(resolve(loadedProducts), seconds).then(console.log(loadedProducts));
+            } else {
+                resolve([]);
+            }
+        })
+    }
 
+    wait = async (products, page, seconds = 1000) => {
+        let loadedProducts = await this.waitForResult(products, page, seconds);
+        this.setState(prevPage => ({
+            page: ++prevPage,
+            filteredProducts: loadedProducts,
+            loading: false
+        }), console.log(this.state.filteredProducts))
+    }
 
+    loadProducts = (products, page) => {
+        window.addEventListener('scroll', () => {
+            console.log(products, page);
+            debugger;
+            const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+            if (scrollTop + clientHeight >= scrollHeight - 12) {
+                console.log(products);
+                // this.wait(products, page)
+            }
+        })
+    }
+    hideLoader = () => {
+        this.setState({
+            loading: false
+        })
+    }
     // this following part is to copy the reference of data with objects as a new data list that won't change the original fresh data
     componentDidMount() {
-        // console.log(this.formatProductData(storeProducts));
         let products = this.formatProductData(storeProducts);
+        // let detailedProduct = this.handleProductDetail(this.state.postName);
+        // let thisProduct = this.findDetails(postName);
+        // let loadedProducts = this.wait(this.formatProductData(storeProducts), this.state.page);
         let maxPrice = Math.max(...products.map(product => product.price));
-        // console.log(maxPrice);
         let readCart = this.getCartFromStorage();
         let featuredProducts = products.filter(product => product.onSale === true);
-
+        // let addedProducts = this.loadProducts(this.state.filteredProducts, this.state.page);
         this.setState({
             products,
+            //filteredProducts for filter
             filteredProducts: products,
+            //pagedProducts for split product list
+
             featuredProducts,
             maxPrice,
             price: maxPrice,
@@ -313,6 +396,13 @@ class ProductProvider extends Component {
     // }
 
 
+    /*********************
+     * Get Data From Server: use axios
+     * ******************/
+    // async componentDidMount() {
+    //     const products = await axios.get('http://dir').then(response=>console.log(response.data));
+    //     this.setState({ products })
+    // }
 
 
     // componentDidUpdate() {
@@ -409,7 +499,10 @@ class ProductProvider extends Component {
         this.setState(() => (
             {
                 cart: [...this.state.cart].map(
-                    item => Object.assign(item, { count: parseInt(newCount) })
+                    item => {
+                        console.log(item.id);
+                        // Object.assign(item, { count: parseInt(newCount) })
+                    }
                 )
             }
         ), () => { console.log(this.state.cart) })
@@ -480,7 +573,6 @@ class ProductProvider extends Component {
             filteredProducts = filteredProducts.filter(product => product.onSale === true)
         }
 
-        // console.log(filteredProducts);
         this.setState(
             () => {
                 return {
@@ -488,7 +580,21 @@ class ProductProvider extends Component {
                 }
             }
         )
+
+        /*********************
+         * In Real filter case: Post Data to Server and get response
+         * ******************/
+        // searchSth=async text=>{
+        //     const response = await axios.get(
+        //         `https//api/search/users?q=${text}&client_id=${SECRET}`
+        //     );
+        //     this.setState({users:response.data.items,loading:false})
+        // }
     }
+
+
+
+
 
     findSalePrice = (id) => {
         let tempCart = this.state.cart;
@@ -503,22 +609,23 @@ class ProductProvider extends Component {
                 <ProductContext.Provider value={{
                     ...this.state,
                     addOneItemToCart: this.addOneItemToCart,
-                    findDetail: this.findDetail,
-                    modalOpen: this.openModal,
-                    modalClose: this.closeModal,
+                    toggleModalOpen: this.openModal,
+                    toggleModalClose: this.closeModal,
                     incrementItems: this.incrementItems,
                     decrementItems: this.decrementItems,
                     clearCart: this.clearCart,
                     removeItem: this.removeItem,
                     taxTotal: this.taxTotal,
                     handleChange: this.handleChange,
+                    findDetails: this.findDetails,
                     saveCartToStorage: this.saveCartToStorage,
                     getCartFromStorage: this.getCartFromStorage,
                     findSalePrice: this.findSalePrice,
                     selectAll: this.selectAll,
                     selectOneItem: this.selectOneItem,
                     handleLogin: this.handleLogin,
-                    handleCount: this.handleCount
+                    handleCount: this.handleCount,
+                    handleProductDetail: this.handleProductDetail
                 }}>
                     {this.props.children}
                 </ProductContext.Provider>

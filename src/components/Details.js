@@ -1,44 +1,26 @@
-import React, { Component } from 'react';
-import Title from './Title';
-import TitleStyled from './layouts/TitleStyled';
-import { ProductConsumer } from '../context';
+import React, { useState, useContext } from 'react';
 import ButtonStyled2 from './layouts/ButtonStyled2';
 import ButtonStyled3 from './layouts/ButtonStyled3';
 import { Link } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
 import { BackToShopBtn } from './BackToShopBtn';
-import { ProductContext } from '../context';
+import { ProductConsumer, ProductContext } from '../context';
 
-export default class Details extends Component {
-    constructor(props) {
-        super(props);
-        // console.log(this.props);
-        this.state = {
-            postName: this.props.match.params.postName
-        }
-    }
-
-    static contextType = ProductContext;
-    //this way is wrong, because the postName is not stored(in this component rather than the context state), it will be gone when page refreshed.
-    render() {
-        const detailedProduct = this.context.findDetail(this.state.postName);
-        // console.log('detailedproduct: ', detailedProduct);
-        // console.log(title);
-        if (!detailedProduct) {
-            return (
-                <h3>No such product</h3>)
-        }
-        const { images, price, title, category, info } = detailedProduct;
-        return (
-            <div className="container container-fluid-lg">
-                <div className="row">
+export const Details = (props) => {
+    const { id, title, images, postName, price, onSale, salePrice, inCart, category, info } = props.product;
+    console.log(props.modalOpen);
+    return (
+        <div>
+            <BackToShopBtn location='Shop' />
+            <div className="container container-md-fluid">
+                <div className="row d-flex flex-column flex-md-row">
                     {/* <!-- Left Column / Headphones Image --> */}
-                    <div className="left-column">
-                        <img src={images} alt={title} />
+                    <div className="left-column col-md-5 w-100">
+                        <img src={window.location.origin + images} alt={title} />
                     </div>
 
                     {/* <!-- Right Column --> */}
-                    <div className="right-column">
+                    <div className="right-column col-md-7 w-100">
 
                         {/* <!-- Product Description --> */}
                         <div className="product-description">
@@ -46,15 +28,18 @@ export default class Details extends Component {
                             <h2>{title}</h2>
                             {/* <!-- Product Pricing --> */}
                             <div className="product-price">
-                                <span>${price}</span>
+                                <span>{price}</span>
                             </div>
-                            <div>
+                            <div className="py-3">
                                 {ReactHtmlParser(info)}
                             </div>
                         </div>
                         <div className="buttons">
                             <div>
-                                <ButtonStyled3>Add to cart</ButtonStyled3>
+                                <ButtonStyled3 onClick={() => {
+                                    props.toggleModalOpen(id);
+                                }}
+                                    data-target="#productModal">Add to cart</ButtonStyled3>
                             </div>
                             <div>
                                 <ButtonStyled2>Buy Now</ButtonStyled2>
@@ -62,11 +47,10 @@ export default class Details extends Component {
                         </div>
                     </div>
                 </div>
-            </div >
+            </div>
 
 
-
-
-        )
-    }
+        </div>
+    );
 }
+

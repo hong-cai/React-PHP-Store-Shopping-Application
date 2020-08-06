@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import NavWrapper from '../components/layouts/NavWrapper';
-import { AiOutlineClose } from 'react-icons/ai';
 import { FaShoppingCart } from 'react-icons/fa';
 import HoverCartSingle from './HoverCartSingle';
 
@@ -79,7 +78,6 @@ export default class HoverCart extends Component {
                             <FaShoppingCart className='navbar-cart mr-2' onMouseOver={this.handleMouseOver} onMouseLeave={this.handleDocClick} />
 
                         </span>
-                        {/* <div className="arrow"></div> */}
                     </NavLink>
                     {this.state.hoverCart ? (
                         <div> {/* Hover Icon To See Cart Products */}
@@ -88,7 +86,7 @@ export default class HoverCart extends Component {
                                 onClick={this.bubbleup} ref={node => this.node = node}
                             >
                                 <div className="hover-cart" style={{ background: 'salmon' }}>
-                                    <div className="close-hover" onClick={this.closeHoverCart} > <AiOutlineClose /> </div>
+
                                     {
                                         this.state.counters.map(
                                             (counter, index) => (

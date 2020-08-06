@@ -100,7 +100,7 @@ class Signup extends Component {
     validateOne = (e) => {
         let target = e.target;
         const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,4})$/i;
-        const usernameCheck = /^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/i;
+        const usernameCheck = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/i;
         const passwordCheck = /^[A-Za-z0-9!@#$%^&*()_]{4,20}$/i;
         const passwordConfirmedCheck = "";
         let errorMessage = '';
@@ -114,7 +114,7 @@ class Signup extends Component {
         };
         if (target.name === "username") {
             if (!usernameCheck.test(target.value)) {
-                errorMessage += "The username should be between 8 and 20 characters without '__' or '_'or'.'";
+                errorMessage += "The username should be between 4 and 20 characters without '__' or '_'or'.'";
             }
             this.setState({
                 usernameError: errorMessage
@@ -130,7 +130,7 @@ class Signup extends Component {
         }
 
         if (target.name === 're-password') {
-            console.log(target.parent);
+            console.log(target);
         }
     }
 

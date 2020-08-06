@@ -10,6 +10,7 @@ padding: .5rem;
 transition:all 0.1s linear;
 width:100%;
 white-space:nowrap;
+text-align:center;
 &: hover{
     filter: brightness(97%);
     color:var(--main-dark);

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 
 class ClearTimer extends Component {
     constructor(props) {
@@ -37,10 +36,6 @@ class ClearTimer extends Component {
 
         )
     }
-}
-
-ClearTimer.propTypes = {
-
 }
 
 export default ClearTimer

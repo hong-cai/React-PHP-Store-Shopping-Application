@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const SaleDiscountStyled = styled.div`
+display:flex;
 .price-div{
     display:flex;
     flex-direction:row;

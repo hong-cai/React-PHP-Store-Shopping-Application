@@ -10,9 +10,6 @@ background: rgba(0,0,0,0.3);
 display:flex;
 align-items:center;
 justify-content:center;
-#modal{
-    background:var(--mainWhite);
-}
 `
 
 export default ModalStyled
