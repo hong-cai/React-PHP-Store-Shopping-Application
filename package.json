@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/runtime": "^7.11.2",
     "@material-ui/core": "^4.4.2",
     "@material-ui/icons": "^4.9.1",
     "axios": "^0.19.2",
@@ -57,5 +58,26 @@
     "postcss-cli": "^7.1.0",
     "postcss-prefixer": "^2.1.2",
     "webpack-cli": "^3.3.11"
-  }
+  },
+  "description": "- Bootstrap,\r - Context,\r - React,\r - PHP,\r - Mysql,",
+  "main": "webpack.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hong-cai/React-Store-Shopping-Application.git"
+  },
+  "keywords": [
+    "react",
+    "store",
+    "shopping",
+    "application",
+    "contextAPI",
+    "bootstrap",
+    "styled-component"
+  ],
+  "author": "Sophie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hong-cai/React-Store-Shopping-Application/issues"
+  },
+  "homepage": "https://github.com/hong-cai/React-Store-Shopping-Application#readme"
 }
