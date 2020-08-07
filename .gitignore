@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+.vscode
 
 # testing
 /coverage
@@ -29,7 +30,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# testing files
+# other files
 jsxModalText.html
 cpcnz.json
 ico.zip
