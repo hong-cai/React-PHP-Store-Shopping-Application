@@ -13,34 +13,25 @@ export default class FeaturedProducts extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            featuredProducts: [],
             activeIndex: 0,
             paused: false,
-            /* Loading State */
-            loading: false,
         };
     }
 
-    getFeaturedProducts = () => {
+    backToFirst = (length) => {
+        if (this.state.activeIndex >= length - 5) {
 
+        }
     }
 
-    onNextClick = (length) => {
-        // if (this.state.activeIndex < length) {
+    onNextClick = () => {
         this.setState(() => ({
             activeIndex: this.state.activeIndex += 1
         }));
-        // } else {
-        //     this.setState({ activeIndex: 0 })
-        // }
     }
 
-    onPrevClick(length) {
-        if (this.state.activeIndex > 0) {
-            this.setState({ activeIndex: this.state.activeIndex - 1 });
-        } else {
-            this.setState({ activeIndex: length })
-        }
+    onPrevClick = () => {
+        this.setState({ activeIndex: this.state.activeIndex - 1 });
     }
 
     startTimer = () => {
@@ -52,7 +43,6 @@ export default class FeaturedProducts extends Component {
     pauseTimer = () => {
         if (!this.state.paused) {
             this.clearTimer();
-            // console.log('clear');
         }
         this.setState({
             paused: !this.state.paused
@@ -61,7 +51,6 @@ export default class FeaturedProducts extends Component {
     resumeTimer = () => {
         if (this.state.paused) {
             this.startTimer();
-            // console.log('resume');
         }
         this.setState({
             paused: !this.state.paused
@@ -69,16 +58,10 @@ export default class FeaturedProducts extends Component {
     }
 
     componentDidMount = () => {
-
-        this.setState({ loading: true });
         let value = this.context;
-        // let featuredProducts = value.featuredProducts;
         // return value.featuredProducts.map(item => console.log(item));
-        // this.setState({
-        //     featuredProducts: value.featuredProducts
-        // }, console.log(this.state.featuredProducts))
-        // this.startTimer();
-
+        this.onNextClick();
+        this.startTimer();
     }
 
     componentWillUnmount = () => {
@@ -89,45 +72,48 @@ export default class FeaturedProducts extends Component {
         let sliderStyle = {
             // transform: `translateX(${this.state.activeIndex * -2}%)`,
             transform: `translateX(${this.state.activeIndex * -200}px)`,
-            transition: '2s'
+            transition: '2s',
+            transitionTimingFunction: 'cubic-bezier(.61,.01,.46,.95)'
         }
         return (
 
             <FeaturedWrapper>
-                <span onClick={this.onPrevClick}><FaChevronLeft /></span>
-                <div className="horizontal-scroll-wrapper">
-                    {/* <Spring
-                        from={{ opacity: 0 }}
-                        to={{ opacity: 1 }}
-                    > */}
-                    <Scrollbars universal autoHide autoHideTimeout={1000}>
-                        <ul style={sliderStyle}
-                            onMouseOver={this.pauseTimer}
-                            onMouseLeave={this.resumeTimer}
-                            className="horizontal-scroll-inner px-0 mb-0" >
-                            {/* {value => { console.log(value) }} */}
-                            <ProductConsumer>
-                                {value => {
-                                    return (
-                                        value.featuredProducts.map(
-                                            (item, index) => {
-                                                return (
-                                                    <FeaturedProduct
-                                                        // className={computedClass}
-
+                <ProductConsumer>
+                    {value => {
+                        let carouselList = value.featuredProducts;;
+                        const listLength = carouselList.length;
+                        return (
+                            <>
+                                <span onClick={
+                                    this.activeIndex < listLength ?
+                                        () => { this.onPrevClick() } : this.pauseTimer
+                                }><FaChevronLeft />
+                                </span>
+                                <div className="horizontal-scroll-wrapper">
+                                    <Scrollbars universal autoHide autoHideTimeout={1000}>
+                                        <ul style={sliderStyle}
+                                            onMouseEnter={this.pauseTimer}
+                                            onMouseLeave={this.resumeTimer}
+                                            className="horizontal-scroll-inner px-0 mb-0" >
+                                            {
+                                                carouselList.map(
+                                                    (item, index) => <FeaturedProduct
                                                         key={index} item={item} />
                                                 )
                                             }
-                                        )
-                                    )
-                                }}
-                            </ProductConsumer>
-                        </ul>
-                    </Scrollbars>
-                    {/* } */}
-                    {/* </Spring> */}
-                </div>
-                <span onClick={this.onNextClick}><FaChevronRight /></span>
+
+                                        </ul>
+                                    </Scrollbars>
+                                </div>
+                                <span onClick={
+                                    this.state.activeIndex > 0 ?
+                                        () => { this.onNextClick() } : null
+                                }><FaChevronRight /></span>
+
+                            </>
+                        )
+                    }}
+                </ProductConsumer>
             </FeaturedWrapper >
         )
     }

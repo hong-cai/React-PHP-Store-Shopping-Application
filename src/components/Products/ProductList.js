@@ -14,7 +14,7 @@ export default (props) => {
                     {
                         value => {
                             const filteredProducts = value.filteredProducts;
-                            if (value.loading === false) {
+                            if (value.loading === true) {
                                 return (filteredProducts.length > 0 ? (value.filteredProducts.map(
                                     item =>
                                         <Product key={item.id} id={item.id} product={item} />

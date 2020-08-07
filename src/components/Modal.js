@@ -12,7 +12,7 @@ export default class Modal extends Component {
         return (
             <ProductConsumer>
                 {value => {
-                    const { modalOpen, modalClose } = value;
+                    const { modalOpen, toggleModalOpen, toggleModalClose } = value;
                     const { title, price, id, images, postName } = value.modalProduct;
                     // console.log(value);
                     if (modalOpen === false) {
@@ -27,18 +27,18 @@ export default class Modal extends Component {
                                         </div>
                                         <div className="right-column col-md-6">
                                             <div id="modal" className="col-8 mx-5 col-md-6 col-lg-4 text-center text-capitalize p-3">
-                                                <h5 className="font-weight-bold text-warning">Adding This Product to Cart?</h5>
+                                                <h5 className="font-weight-bold text-warning">Great!Added to the cart successfully!</h5>
                                                 <h5>{title}</h5>
                                                 <h6>${price}</h6>
                                                 <Link to={`products/${postName}`} >
-                                                    <ButtonStyled onClick={() => { modalClose() }}>Continue</ButtonStyled></Link>
+                                                    <ButtonStyled onClick={() => { toggleModalClose() }}>Continue</ButtonStyled></Link>
                                                 <Link to="/cart">
-                                                    <ButtonStyled cart onClick={() => { modalClose() }}>Checkout</ButtonStyled></Link>
+                                                    <ButtonStyled cart onClick={() => { toggleModalClose() }}>Checkout</ButtonStyled></Link>
                                             </div>
                                         </div>
                                     </div>
                                     <FeaturedProducts />
-                                    <span className="position-absolute top-0 h3 pull-right text-lg" onClick={() => { console.log(modalClose) }}><AiOutlineClose />
+                                    <span className="position-absolute top-0 h3 pull-right text-lg" onClick={() => { toggleModalClose() }}><AiOutlineClose />
                                     </span>
                                 </div>
 

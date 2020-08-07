@@ -360,8 +360,8 @@ class ProductProvider extends Component {
             products,
             //filteredProducts for filter
             filteredProducts: products,
-            //pagedProducts for split product list
 
+            //pagedProducts for split product list
             featuredProducts,
             maxPrice,
             price: maxPrice,

@@ -14,7 +14,7 @@ export const FeaturedProduct = (props) => {
         <li className="horizontal-scroll-div d-flex flex-column justify-content-center align-items-center text-center p-2 h-100">
             <Link to='/details'>
                 <div className="img-container p-2">
-                    <img src={images} alt="img" />
+                    <img src={process.env.PUBLIC_URL + `/img/${images}`} alt={title} />
                 </div>
             </Link>
             <div className="card-body">

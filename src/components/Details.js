@@ -11,12 +11,14 @@ export const Details = (props) => {
     console.log(props.modalOpen);
     return (
         <div>
-            <BackToShopBtn location='Shop' />
+            <div className="container">
+                <BackToShopBtn location='Shop' />
+            </div>
             <div className="container container-md-fluid">
                 <div className="row d-flex flex-column flex-md-row">
                     {/* <!-- Left Column / Headphones Image --> */}
                     <div className="left-column col-md-5 w-100">
-                        <img src={window.location.origin + images} alt={title} />
+                        <img src={process.env.PUBLIC_URL + `/img/${images}`} alt={title} />
                     </div>
 
                     {/* <!-- Right Column --> */}

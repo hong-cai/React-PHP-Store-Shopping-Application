@@ -23,7 +23,7 @@ const Product = (props) => {
                                 <div className="img-container p-4 d-flex justify-content-center">
                                     <img
                                         //  onClick={value.handleProductDetail(postName)} 
-                                        className='cart-img-top' src={images} alt={title} width='80%' /></div>
+                                        className='cart-img-top' src={process.env.PUBLIC_URL + `/img/${images}`} alt={postName} width='80%' /></div>
                             </Link>
                             <div className="card-body d-flex flex-column justify-content-center align-items-center text-center px-4">
                                 <Link to={`/products/${postName}`}><h6 className="card-title" data-tooltip={title} >{title}</h6></Link>

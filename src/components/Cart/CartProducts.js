@@ -24,7 +24,7 @@ const CartProducts = (props) => {
                                     />
                                 </div>
                                 <div className="col-1 m-auto p-0 d-none d-sm-inline">
-                                    <img src={window.location.origin + images} alt={title} className="mr-0 img-fluid" />
+                                    <img src={process.env.PUBLIC_URL + `/img/${images}`} alt={title} className="mr-0 img-fluid" />
                                 </div>
                                 <div className="col-2 m-auto p-0">
                                     <Link to={`../products/${postName}`} > {title} </Link>

@@ -7,6 +7,10 @@
 
 # testing
 /coverage
+/api
+/src/img/orig-img/
+/src/sandbox/
+
 
 # production
 /build
@@ -26,6 +30,3 @@ yarn-error.log*
 jsxModalText.html
 cpcnz.json
 ico.zip
-/api
-/src/img/orig-img/
-/src/sandbox/
