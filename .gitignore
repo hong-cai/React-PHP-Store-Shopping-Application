@@ -7,8 +7,11 @@
 
 # testing
 /coverage
+
+# ignore img and test folder
 /api
-/src/img/orig-img/
+/src/img/
+/public/img/
 /src/sandbox/
 
 
