@@ -11,6 +11,9 @@
   --main-red: #F78888;
   --main-shade: rgba(14, 173, 175, 0.13);
   --main-transition: all 0.3s linear;
+  --text-font: 'Roboto', sans-serif;
+  --title-font: 'Oswald', sans-serif;
+  --logo-font: 'Pacifico', cursive;
 }
 
 * {
@@ -20,7 +23,7 @@
 }
 
 body {
-  font-family: 'Oswald', sans-serif;
+  font-family: var(--text-font);
   letter-spacing: 1px;
   background: url('./img/bg-spittle-texture.jpg') repeat;
   background-color: var(--main-background);
@@ -28,20 +31,20 @@ body {
 }
 
 a {
-  font-family: 'Oswald', sans-serif;
+  font-family: var(--title-font);
 }
 
 h5, h6, p, label {
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--text-font);
   margin: 0 2px;
 }
 
 p {
-  font-size: .8rem;
+  font-size: 1rem;
 }
 
 .text-title {
-  font-family: 'Roboto';
+  font-family: var(--text-font);
   letter-spacing: .3rem;
   text-transform: uppercase;
 }
@@ -398,7 +401,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
   width: 100%;
 }
 
-.btn-facebook {
+.btn-google {
   background-color: #405D9D !important;
   color: #fff !important;
 }

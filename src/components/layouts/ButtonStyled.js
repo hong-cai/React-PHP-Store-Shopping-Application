@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const ButtonStyled = styled.button`
 background:transparent;
 text-transform:capitalize;
+font-family: var(--title-font);
 min-width:80px;
 border:2px solid ${prop => prop.cart ? 'var(--main-color)' : 'var(--main-dark)'};
 color:var(--main-black);

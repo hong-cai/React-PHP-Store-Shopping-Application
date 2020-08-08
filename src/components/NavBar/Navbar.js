@@ -28,6 +28,8 @@ const Navbar = (props) => {
         closeHoverCart();
     }
 
+
+
     const handleMouseOver = () => {
         setHoverCart(true);
     }
@@ -98,35 +100,35 @@ const Navbar = (props) => {
                             }}
                         </ProductConsumer>
                     </span>
-                </NavLink>{hoverCart ? (
-                    <Fragment> {/* Hover Icon To See Cart Products */}
-                        <div className="hover-cart-wrapper" ref={hoverCartRef}>
-                            <div className="hover-cart">
-                                <ProductConsumer>
-                                    {value => {
-                                        return value.cart.length > 0 ? (<ul className="d-flex flex-column justify-content-flex-end">
-                                            <Scrollbars autoHide style={{ width: "100%", height: "100%" }}>
-                                                {value.cart.map(
-                                                    product => <NavHoverSingle key={product.id} removeItem={value.removeItem} extractProps={product} handleCount={value.handleCount} />
-                                                )}
-                                            </Scrollbars>
-                                            <NavLink to='../cart'>
-                                                <ButtonStyled3 className="shopping-cart-btn text-center">
-                                                    <h4> Go To Cart</h4>
-                                                </ButtonStyled3>
-                                            </NavLink></ul>
-                                        ) :
-                                            (<div className="overflow-hidden d-flex flex-column justify-content-center"><NotFound message="Nothing In The Cart" />
+                </NavLink>{hoverCart === false ? null : (
+                    <div className="hover-cart-wrapper" ref={hoverCartRef}>
+                        <div className="hover-cart">
+                            <ProductConsumer>
+                                {value => {
+                                    return value.cart.length > 0 ? (<ul className="d-flex flex-column justify-content-flex-end">
+                                        <Scrollbars autoHide style={{ width: "100%", height: "100%" }}>
+                                            {value.cart.map(
+                                                product => <NavHoverSingle key={product.id} removeItem={value.removeItem} extractProps={product} onChange={value.handleCount} />
+                                            )}
+                                        </Scrollbars>
+                                        <NavLink to='../cart'>
+                                            <ButtonStyled3 className="shopping-cart-btn text-center">
+                                                <h4>Checkout</h4>
+                                            </ButtonStyled3>
+                                        </NavLink></ul>
+                                    ) :
+                                        (<div className="overflow-hidden d-flex flex-column justify-content-center"><NotFound message="Nothing In The Cart" />
+                                            <NavLink to='../../Shop'>
                                                 <ButtonStyled3 className="shopping-cart-btn">
-                                                    <h5> Go Shopping</h5>
-                                                </ButtonStyled3></div>);
-                                    }}
-                                </ProductConsumer>
-                            </div>
+                                                    <h5>Go Shopping</h5>
+                                                </ButtonStyled3></NavLink></div>);
+                                }}
+                            </ProductConsumer>
                         </div>
-                        {/*End Of Hover Icon To See Cart Products */}
-                    </Fragment>
-                ) : (null)}
+                    </div>
+                )
+
+                }
             </div>
 
 

@@ -19,24 +19,24 @@ class ProductProvider extends Component {
             limit: 12,
             page: 0,
 
-            /*featuredProducts on Home page*/
+            /*FeaturedProducts on Home page*/
             featuredProducts: [],
 
             /*Dynamic product postName for single product info*/
-            postName: "",
-            /*details for single product display*/
+            postName: '',
+            /*Details for single product display*/
             detailedProduct: defaultProduct,
 
-            /*modal for Add To Cart button*/
+            /*Modal for Add To Cart button*/
             modalOpen: false,
             modalProduct: defaultProduct,
 
-            /*cart summary*/
+            /*Cart summary*/
             cartSubTotal: 0,
             cartTax: 0,
             total: 0,
 
-            /*filters configuration*/
+            /*Filters configuration*/
             filteredProducts: [],
             category: "All",
             price: 0,
@@ -44,24 +44,38 @@ class ProductProvider extends Component {
             minPrice: 0,
             search: "",
 
-            /*on-sale tag*/
+            /*On-sale tag*/
             onSale: false,
 
-            /*checkboxes for cart products*/
+            /*Checkboxes for cart products*/
             checkoutCart: [],
             includeId: [],
 
-            /*cart summary on hover*/
+            /*Cart summary on hover*/
             cartHover: false,
 
             /*Login State*/
             loggedIn: false,
-            user: {},
-
+            user: [
+                {
+                    id: 1,
+                    email: 'aaaa@test.com',
+                    password: 'aaaa'
+                },
+                {
+                    id: 2,
+                    email: 'bbbb@test.com',
+                    password: 'bbbb'
+                },
+            ]
         };
     }
 
+    /****************************
+     * Login/Validation/Logout
+     * ************************** */
 
+    // Login user
     handleLogin = (userData) => {
         sessionStorage.userData ?
             this.setState({
@@ -73,7 +87,7 @@ class ProductProvider extends Component {
                 user: {}
             })
     }
-
+    // Logout user
     handleLogout = () => {
         if (sessionStorage.getItem('userData')) {
             this.setState({
@@ -98,16 +112,18 @@ class ProductProvider extends Component {
         }
     }
 
-    //function to be used by findDetails() and addToCart() modal
+    /****************************
+     * Get Single Product Info
+     * ************************** */
+    //Function to be used by findDetails() and addToCart() modal
     getProduct = (products, id) => {
         const oneProduct = products.find(item => item.id == id);
         return oneProduct;
     };
 
-
+    //One product detail after click each product link
     findDetails = postName => {
         const productDetail = this.state.products.find(item => item.postName === postName);
-        console.log(productDetail);
         return productDetail ? productDetail : false;
         // console.log(productDetail);
         /*********************
@@ -121,6 +137,7 @@ class ProductProvider extends Component {
         // }
     };
 
+    // "/products/postName": dynamic link to each product and display info
     handleProductDetail = postName => {
         // console.log('clicked the image: ', postName);
         const thisProduct = this.findDetails(postName) != false ? this.findDetails(postName) : defaultProduct;
@@ -129,6 +146,10 @@ class ProductProvider extends Component {
         })
     }
 
+
+    /****************************
+     * Add Item To The Cart
+     * ************************** */
     //NOT JUST ADD ONE ITEM TO CART BUT THE WHOLE CART 
     addOneItemToCart = (id) => {
         let newCart = [];
@@ -150,7 +171,6 @@ class ProductProvider extends Component {
 
 
         if (this.getProduct(this.state.cart, id)) {
-            // console.log([...this.state.cart]);
             newCart = [...this.state.cart];
         } else {
             newCart = [...this.state.cart, oneProduct];
@@ -171,6 +191,12 @@ class ProductProvider extends Component {
         )
     };
 
+
+
+    /**************************
+     *             Modal
+     * ************************ */
+    //Add To Cart:pass id and open modal to confirm
     openModal = id => {
         const addedProduct = this.getProduct(this.state.products, id);
         this.setState(() => {
@@ -181,7 +207,7 @@ class ProductProvider extends Component {
         });
     };
 
-
+    //Add To Cart:close modal
     closeModal = () => {
         this.setState(() => {
             return {
@@ -190,8 +216,12 @@ class ProductProvider extends Component {
         })
     }
 
+
+    /*************************************
+     * Increase/Remove Item/ Clear Cart
+     * ********************************** */
+    // Cart: increase item numbers
     incrementItems = (id) => {
-        console.log('clicked');
         let tempCart = [...this.state.cart];
         let selectedProduct = this.getProduct(tempCart, id);
         let index = tempCart.indexOf(selectedProduct);
@@ -205,7 +235,7 @@ class ProductProvider extends Component {
         })
     }
 
-
+    // Cart: reduce item numbers
     decrementItems = (id) => {
         let tempCart = this.state.cart;
         let selectedProduct = this.getProduct(tempCart, id);
@@ -223,7 +253,7 @@ class ProductProvider extends Component {
         })
 
     }
-
+    // Cart: empty cart
     clearCart = () => {
         this.state.cart.forEach(
             product => {
@@ -240,6 +270,7 @@ class ProductProvider extends Component {
         )
     }
 
+    //Cart and HoverCart: remove one item
     removeItem = (id) => {
         let newCart = [...this.state.cart];
         let currProduct = this.getProduct(newCart, id);
@@ -257,7 +288,7 @@ class ProductProvider extends Component {
         )
     }
 
-
+    //Cart: CartTotal, calculate total tax
     taxTotal = () => {
         let tempCart = this.state.checkoutCart;
         let tempSubTotal = 0;
@@ -275,8 +306,57 @@ class ProductProvider extends Component {
         )
     }
 
+    //Cart: select all items in the cart and update CartTotal
+    selectAll = (e) => {
+        let checkoutCart = [...this.state.cart];
+        let includeId = this.state.includeId;
+        if (e.target.checked) {
+            for (const item of checkoutCart) {
+                includeId.push(item.id);
+            }
+        }
+
+        if (e.target.checked) {
+            this.setState({
+                checkoutCart,
+                includeId,
+            }, () => { this.taxTotal() })
+        } else {
+            this.setState({
+                checkoutCart: [],
+                includeId: [],
+            },
+                // () => { console.log(checkoutCart); }
+                () => { this.taxTotal() }
+            )
+        }
+    };
+
+    //Cart: select one item and update the CartTotal
+    selectOneItem = (e) => {
+        const { id, checked } = e.target;
+        let selectedItem = this.state.cart.find(item => item.id == id);
+        if (checked) {
+            this.setState(
+                prevState => (
+                    {
+                        checkoutCart: [...prevState.checkoutCart, selectedItem],
+                        includeId: [...prevState.includeId, selectedItem.id]
+                    }
+                ), () => { this.taxTotal() })
+        } else {
+            this.setState(prevState => ({
+                checkoutCart: prevState.checkoutCart.filter(item => item.id != selectedItem.id),
+                includeId: prevState.includeId.filter(id => id != selectedItem.id)
+            }), () => { this.taxTotal() })
+        }
+    }
 
 
+
+    /*************************************
+     *  Save/Remove Item from LocalStorage
+     * ********************************** */
     // Save Item To LocalStorage
     saveCartToStorage = (cart) => {
         localStorage.setItem('cart', JSON.stringify(cart));
@@ -290,7 +370,15 @@ class ProductProvider extends Component {
         return cart;
     }
 
-    //Split large products array into limited number arrays and display when scrolling list
+
+
+
+
+
+    /*************************************
+     * Unlimited Scroll List 
+     * ********************************** */
+    //Split large products array into limited number chunks and display when scrolling list
     separateProducts = (products) => {
         console.log(products);
         let limit = 12;
@@ -303,6 +391,7 @@ class ProductProvider extends Component {
         return newList;
     }
 
+    //Scroll and load smaller list
     loadSmallList = (products, page) => {
         let newList = this.separateProducts(products);
         let loadedProducts = newList[page];
@@ -346,7 +435,7 @@ class ProductProvider extends Component {
             loading: false
         })
     }
-    // this following part is to copy the reference of data with objects as a new data list that won't change the original fresh data
+
     componentDidMount() {
         let products = this.formatProductData(storeProducts);
         // let detailedProduct = this.handleProductDetail(this.state.postName);
@@ -375,43 +464,7 @@ class ProductProvider extends Component {
 
 
 
-
-    /*********************
-     * Get Data From Server:fetch API
-     * ******************/
-
-    // componentDidMount(){
-    //     fetch("https://host")
-    //     .then(result=>reslt.json())
-    //     .then(products=>this.setState({products}))
-    // }
-
-
-    /*********************
-     * Get Data From Server: ASYNC await/promise Syntacs
-     * ******************/
-    // async componentDidMount() {
-    //     const products = (await fetch("https://host")).json();
-    //     this.setState({ products })
-    // }
-
-
-    /*********************
-     * Get Data From Server: use axios
-     * ******************/
-    // async componentDidMount() {
-    //     const products = await axios.get('http://dir').then(response=>console.log(response.data));
-    //     this.setState({ products })
-    // }
-
-
-    // componentDidUpdate() {
-    //     let readCart = this.getCartFromStorage();
-    //     this.setState({
-    //         cart: readCart,
-    //     })
-    // }
-
+    //Data.js: get json data and format into 
     formatProductData = (products) => {
         let tempProducts = products.map(product => {
             let id = product.ID;
@@ -467,76 +520,21 @@ class ProductProvider extends Component {
         )
     }
 
-    selectAll = (e) => {
-
-        let checkoutCart = [...this.state.cart];
-        let includeId = this.state.includeId;
-        if (e.target.checked) {
-            for (const item of checkoutCart) {
-                includeId.push(item.id);
-            }
-        }
-
-        if (e.target.checked) {
-            this.setState({
-                checkoutCart,
-                includeId,
-            }, () => { this.taxTotal() })
-        } else {
-            this.setState({
-                checkoutCart: [],
-                includeId: [],
-            },
-                // () => { console.log(checkoutCart); }
-                () => { this.taxTotal() }
+    //HoverCart in Navbar: Update the input number
+    handleCount = (e) => {
+        const newCount = e.target.value;
+        this.setState({
+            cart: this.state.cart.map(item =>
+                item.id === parseInt(e.target.id) ? { ...item, count: parseInt(newCount) } : item
             )
-        }
-    };
-
-
-    handleCount = (newCount) => {
-        console.log(newCount);
-        this.setState(() => (
-            {
-                cart: [...this.state.cart].map(
-                    item => {
-                        console.log(item.id);
-                        // Object.assign(item, { count: parseInt(newCount) })
-                    }
-                )
-            }
-        ), () => { console.log(this.state.cart) })
-
-    }
-    // this.setState(prevState => ({
-    //     counters: prevState.counters.map(
-    //         counter => (counter.name === name ? Object.assign(counter, { 'name': name, 'quantity': parseInt(quantity) }) : counter)
-    //     )
-    // }));
-
-
-    selectOneItem = (e) => {
-        const { id, checked } = e.target;
-        let selectedItem = this.state.cart.find(item => item.id == id);
-        // console.log(e.target.id, e.target.checked);
-        if (checked) {
-            this.setState(
-                prevState => (
-                    {
-                        checkoutCart: [...prevState.checkoutCart, selectedItem],
-                        includeId: [...prevState.includeId, selectedItem.id]
-                    }
-                ), () => { this.taxTotal() })
-        } else {
-            this.setState(prevState => ({
-                checkoutCart: prevState.checkoutCart.filter(item => item.id != selectedItem.id),
-                includeId: prevState.includeId.filter(id => id != selectedItem.id)
-            }), () => { this.taxTotal() })
-        }
+        })
     }
 
 
 
+    /*********************
+     * Shop: Filter
+     * ******************/
     filterProducts = () => {
         // console.log(this.state.category);
         const { products, category, maxPrice, minPrice, onSale, search } = this.state;
@@ -636,3 +634,37 @@ class ProductProvider extends Component {
 
 const ProductConsumer = ProductContext.Consumer;
 export { ProductProvider, ProductConsumer, ProductContext };
+
+
+
+
+
+
+
+/*********************
+ * Get Data From Server:fetch API
+ * ******************/
+
+    // componentDidMount(){
+    //     fetch("https://host")
+    //     .then(result=>reslt.json())
+    //     .then(products=>this.setState({products}))
+    // }
+
+
+/*********************
+ * Get Data From Server: ASYNC await/promise Syntacs
+ * ******************/
+    // async componentDidMount() {
+    //     const products = (await fetch("https://host")).json();
+    //     this.setState({ products })
+    // }
+
+
+/*********************
+ * Get Data From Server: use axios
+ * ******************/
+    // async componentDidMount() {
+    //     const products = await axios.get('http://dir').then(response=>console.log(response.data));
+    //     this.setState({ products })
+    // }

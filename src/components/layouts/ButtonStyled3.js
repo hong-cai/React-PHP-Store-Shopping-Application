@@ -4,6 +4,7 @@ const ButtonStyled3 = styled.button`
 background:var(--main-color);
 font-size:1.1rem;
 text-transform:capitalized;
+font-family: var(--title-font);
 border:1px solid var(--main-color);
 color:var(--main-background);
 padding: .5rem;

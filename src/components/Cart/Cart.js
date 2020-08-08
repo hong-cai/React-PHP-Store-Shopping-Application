@@ -38,7 +38,7 @@ const Cart = () => {
                             <React.Fragment>
                                 <Title title="Shopping Cart" />
                                 <p className="text-center">Nothing in your shopping cart yet</p>
-                                <BackToShopBtn />
+                                <BackToShopBtn location='Shop' />
                             </React.Fragment>
                         )
                     }

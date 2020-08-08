@@ -80,7 +80,7 @@ export default class FeaturedProducts extends Component {
             <FeaturedWrapper>
                 <ProductConsumer>
                     {value => {
-                        let carouselList = value.featuredProducts;;
+                        let carouselList = value.featuredProducts;
                         const listLength = carouselList.length;
                         return (
                             <>

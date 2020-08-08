@@ -6,19 +6,19 @@ import { ProductContext } from '../../context';
 
 
 export const FeaturedProduct = (props) => {
-    const { id, price, title, images, salePrice } = props.item;
+    const { id, price, title, images, salePrice, postName } = props.item;
     const featuredProducts = useContext(ProductContext);
     // console.log(featuredProducts);
 
     return (
         <li className="horizontal-scroll-div d-flex flex-column justify-content-center align-items-center text-center p-2 h-100">
-            <Link to='/details'>
+            <Link to={`/products/${postName}`}>
                 <div className="img-container p-2">
                     <img src={process.env.PUBLIC_URL + `/img/${images}`} alt={title} />
                 </div>
             </Link>
             <div className="card-body">
-                <Link to='/details'>
+                <Link to={`/products/${postName}`}>
                     <p className="card-title">{title}</p></Link>
                 <SaleDiscount price={price} salePrice={salePrice} />
 

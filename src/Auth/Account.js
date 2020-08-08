@@ -1,10 +1,10 @@
 import React from "react";
-import { ProductConsumer } from './context';
-import Title from './components/Title';
+import { ProductConsumer } from '../context';
+import Title from '../components/Title';
 import Signup from './Signup';
 import Login from './Login';
-import { AccountInfo } from './components/Account/AccountInfo';
-import TestForm from './sandbox/TestForm';
+// import { AccountInfo } from '../components/Account/AccountInfo';
+import TestForm from '../sandbox/TestForm';
 
 const Account = () => {
     return (

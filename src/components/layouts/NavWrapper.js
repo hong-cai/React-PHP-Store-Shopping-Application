@@ -33,7 +33,7 @@ const NavWrapper = styled.nav`
     }
 
     .logo{
-        font-family: 'Pacifico', cursive;
+        font-family:var(--logo-font);
         text-transform: capitalize;
     }
 
@@ -61,6 +61,7 @@ text-transform:capitalize;
         height:450px;
         background: var(--light-color);
         border-radius: 5px;
+        top:100%;
     }
     .hover-cart {
         color:var(--main-dark);
@@ -90,9 +91,9 @@ text-transform:capitalize;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     position: absolute;
-    top:-8px;
+    top:-10px;
    right:50px;
-    bottom: -10px; 
+    /* bottom: -10px;  */
     }
 
 

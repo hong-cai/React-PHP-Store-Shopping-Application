@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { SendHttpRequest } from './services/SendHttpRequest';
+import { SendHttpRequest } from '../services/SendHttpRequest';
 import { FaEnvelope, FaLock } from 'react-icons/fa';
 class Login extends Component {
     constructor() {
@@ -22,9 +22,10 @@ class Login extends Component {
 
     }
 
+    //CODE EXAMPLE,details in:https://github.com/hong-cai/php-MVC-panel-adminLTE-bootstrap-javascript
     loginTest = (e) => {
         e.preventDefault();
-        fetch('http://localhost/reactBegin/store-sample/api/index.php?tp=login',
+        fetch('http://localhost/store-sample/api/index.php?tp=login',
             {
                 method: 'POST',
                 body: JSON.stringify(this.state),
@@ -124,7 +125,7 @@ class Login extends Component {
                 <article className="card-body">
                     <h4 className="card-title mt-3 text-center">Login</h4>
                     <p>
-                        <a href="/" className="btn btn-block btn-facebook"> <i className="fab fa-facebook-f"></i> &nbsp; Login via facebook</a>
+                        <a href="/" className="btn btn-block btn-google"> <i className="fab fa-google-f"></i> &nbsp; Login via google</a>
                     </p>
                     <p className="divider-text">
                         <span className="bg-light">OR</span>
@@ -151,8 +152,8 @@ class Login extends Component {
 
                         <div className="form-group input-group">
                             <input type="submit" className="btn btn-block btn-primary" value="Login" onClick={this.loginTest} /> </div>
-                        <div className="form-group input-group">
-                            <input type="submit" className="btn m-auto" value="Forget Password?" onClick={this.resetPass} /> </div>
+                        {/* <div className="form-group input-group">
+                            <input type="submit" className="btn m-auto" value="Forget Password?" onClick={this.resetPass} /> </div> */}
                     </form>
                 </article>
             </div>

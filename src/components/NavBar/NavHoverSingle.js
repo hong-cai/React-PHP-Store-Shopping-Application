@@ -13,7 +13,7 @@ export const NavHoverSingle = (props) => {
         <li className="hover-cart-details">
             <div className="hover-cart-item">
                 <div className="img-div">
-                    <img className='hover-cart-item-img' src={images}
+                    <img className='hover-cart-item-img' src={process.env.PUBLIC_URL + `/img/${images}`}
                         alt={title} />
                 </div>
                 <div className="hover-cart-item-details">
@@ -25,9 +25,8 @@ export const NavHoverSingle = (props) => {
                     </div>
                 </div>
                 <div>
-                    <input name="count" type="number" defaultValue={count}
-                        onChange={(e) => { props.handleCount(e.target.value) }}
-                    // onChange={e => setCount({ quantity: e.target.value })}
+                    <input id={id} name="count" type="number" defaultValue={count}
+                        onChange={props.onChange} min="0" onKeyUp={(e) => e.target.value < 0 ? e.target.value = Math.abs(e.target.value) : e.target.value}
                     />
                 </div>
             </div>
