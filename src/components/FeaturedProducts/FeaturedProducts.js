@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FeaturedWrapper from '../layouts/FeaturedWrapper';
 import { Spring } from 'react-spring/renderprops';
-import { ProductConsumer, ProductContext } from '../../context';
+import { ProductConsumer, ProductContext } from '../../ProductContext';
 import range from "lodash/range";
 import FeaturedProduct from './FeaturedProduct';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
@@ -58,7 +58,7 @@ export default class FeaturedProducts extends Component {
     }
 
     componentDidMount = () => {
-        let value = this.context;
+        // let value = this.context;
         // return value.featuredProducts.map(item => console.log(item));
         this.onNextClick();
         this.startTimer();

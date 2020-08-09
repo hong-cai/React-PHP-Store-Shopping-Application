@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ProductWrapper from '../layouts/ProductWrapper';
 import PropTypes from 'prop-types';
-import { ProductConsumer } from '../../context';
+import { ProductConsumer } from '../../ProductContext';
 import ButtonStyled2 from '../layouts/ButtonStyled2';
 import SaleTag from '../layouts/SaleTag';
 import { SaleDiscount } from '../Sales/SaleDiscount';

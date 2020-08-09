@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import ButtonStyled3 from '../layouts/ButtonStyled3';
 import ButtonStyled from '../layouts/ButtonStyled';
 import NavWrapper from '../layouts/NavWrapper';
-import { ProductContext, ProductConsumer } from '../../context';
+import { ProductContext, ProductConsumer } from '../../ProductContext';
 import { NavHoverSingle } from '../NavBar/NavHoverSingle';
 import { MdFilterList } from 'react-icons/md';
 import { GiHeartPlus } from 'react-icons/gi';

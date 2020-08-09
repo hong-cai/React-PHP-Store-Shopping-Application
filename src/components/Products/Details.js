@@ -3,7 +3,7 @@ import ButtonStyled2 from '../layouts/ButtonStyled2';
 import ButtonStyled3 from '../layouts/ButtonStyled3';
 import ReactHtmlParser from 'react-html-parser';
 import { BackToShopBtn } from '../BackToShopBtn';
-import { ProductConsumer } from '../../context';
+import { ProductConsumer } from '../../ProductContext';
 import { NotFound } from '../NotFound';
 import { Link } from 'react-router-dom';
 

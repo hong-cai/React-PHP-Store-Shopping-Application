@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import ProductList from './ProductList';
 import Title from '../Title';
 import Textblock from '../Textblock';
-import { ProductContext, ProductConsumer } from '../../context';
+import { ProductContext, ProductConsumer } from '../../ProductContext';
 
 
 const Products = () => {

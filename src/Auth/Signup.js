@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SendHttpRequest } from './services/SendHttpRequest';
+// import { SendHttpRequest } from './services/SendHttpRequest';
 import { Redirect } from 'react-router-dom';
 import { FaEnvelope, FaUser, FaLock } from 'react-icons/fa';
 import { TiTick } from 'react-icons/ti';
@@ -9,12 +9,9 @@ class Signup extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
-            password: '',
-            email: '',
-            passwordConfirmed: "",
-
-            usernameError: '',
+            input: {},
+            error: {},
+            nameError: '',
             passwordError: '',
             emailError: '',
             passwordConfirmedError: '',
@@ -24,54 +21,62 @@ class Signup extends Component {
         };
     };
 
-    onChange = (e) => {
-        const target = e.target;
-        this.setState({ [e.target.name]: e.target.value });
-        // console.log(e.target.name,e.target.value)
+    signupLocal = (e) => {
+        e.preventDefault();
+        console.log('to update users');
+        const {
+            email, password, passwordConfirmed, name
+        } = this.state;
+        const isValid = this.validateOne();
+        if (isValid) {
+
+        };
     }
-    signup = (e) => {
-        // e.preventDefault();
-        // const {
-        //     email, password, passwordConfirmed, name
-        // } = this.state;
-        // const isValid = this.validate();
-        // if (isValid) {
-        //     axios.post("http://localhost:3000/", {
-        //         user: {
-        //             email,
-        //             password,
-        //             passwordConfirmed,
-        //             name
-        //         }
-        //     }, { withCredentials: true }).then(result => console.log(result)).catch(error => console.log(error))
-
-
-        SendHttpRequest('signup', this.state).then((result) => {
-            let responseJson = result;
-            if (responseJson.userData) {
-                sessionStorage.setItem('userData', JSON.stringify(responseJson));
-                this.setState({ redirectToReferrer: true });
-                console.log('right')
-            }
-            else
-                alert(result.error);
-        });
-    };
 
 
 
+    signupRemote = (e) => {
+        e.preventDefault();
+        const {
+            email, password, passwordConfirmed, name
+        } = this.state;
+        const isValid = this.validateOne();
+        if (isValid) {
+            axios.post("http://localhost:3000/", {
+                user: {
+                    email,
+                    password,
+                    passwordConfirmed,
+                    name
+                }
+            }, { withCredentials: true }).then(result => console.log(result)).catch(error => console.log(error))
 
 
+            // SendHttpRequest('signup', this.state).then((result) => {
+            //     let responseJson = result;
+            //     if (responseJson.userData) {
+            //         sessionStorage.setItem('userData', JSON.stringify(responseJson));
+            //         this.setState({ redirectToReferrer: true });
+            //         console.log('right')
+            //     }
+            //     else
+            //         alert(result.error);
+            // });
+        };
+    }
+
+
+    //THIS CODE COULD BE FOUND IN:https://github.com/hong-cai/php-MVC-panel-adminLTE-bootstrap-javascript
     signupTest = (e) => {
         e.preventDefault();
-        const { email, username, password } = this.state;
+        const { email, name, password } = this.state;
         // console.log(this.state);
         // debugger;
         fetch('http://localhost/reactBegin/store-sample/api/index.php?tp=signup',
             {
                 method: 'POST',
                 body: JSON.stringify({
-                    username: username,
+                    name: name,
                     email: email,
                     password: password,
                 }),
@@ -97,43 +102,58 @@ class Signup extends Component {
 
 
 
-    validateOne = (e) => {
-        let target = e.target;
-        const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,4})$/i;
-        const usernameCheck = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/i;
-        const passwordCheck = /^[A-Za-z0-9!@#$%^&*()_]{4,20}$/i;
-        const passwordConfirmedCheck = "";
-        let errorMessage = '';
-        if (target.name === "email") {
-            if (!emailCheck.test(target.value)) {
-                errorMessage += 'Please input a valid email';
-            }
-            this.setState({
-                emailError: errorMessage
-            });
-        };
-        if (target.name === "username") {
-            if (!usernameCheck.test(target.value)) {
-                errorMessage += "The username should be between 4 and 20 characters without '__' or '_'or'.'";
-            }
-            this.setState({
-                usernameError: errorMessage
-            });
-        }
-        if (target.name === "password") {
-            if (!passwordCheck.test(target.value)) {
-                errorMessage += "password should be between 4 and 20 letters or digits";
-            }
-            this.setState({
-                passwordError: errorMessage
-            });
-        }
-
-        if (target.name === 're-password') {
-            console.log(target);
-        }
+    //Locate the target input and update state
+    handleChange = (e) => {
+        let input = this.state.input;
+        input[e.target.name] = e.target.value;
+        this.setState({
+            input
+        });
     }
 
+    //function to check field
+    checkField = (reg, field, errorField, errorMsg) => {
+        let isValid = true;
+        let errorMessage = '';
+        if (reg.test(field) === false) {
+            isValid = false;
+            errorMessage += errorMsg;
+        }
+        this.setState({
+            [errorField]: errorMessage
+        });
+        return isValid;
+    }
+
+    //validate each field with checkField() function
+    validateOne = (e) => {
+        const emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,4})$/i;
+        const nameCheck = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/i;
+        const passwordCheck = /^[A-Za-z0-9!@#$%^&*()_]{4,20}$/i;
+        const target = e.target;
+        let isValid = true;
+        let input = this.state.input;
+        let errorMessage = '';
+        if (target.name === 'email') {
+            console.log(this.checkField(emailCheck, input['email'], 'emailError', 'Please input a valid email'));
+        }
+        if (target.name === 'name') {
+            this.checkField(nameCheck, input['name'], 'nameError', "The username should be between 4 and 20 characters without '__' or '_'or'.'");
+        }
+        if (target.name === 'password') {
+            this.checkField(passwordCheck, input['password'], 'passwordError', 'password should be between 4 and 20 letters or digits');
+        }
+        if (target.name === 're-password') {
+            if (target.value !== input['password']) {
+                isValid = false;
+                errorMessage += "Passwords don't match.";
+                this.setState({
+                    passwordConfirmedError: errorMessage
+                });
+            }
+        }
+        return isValid;
+    };
 
 
 
@@ -141,35 +161,35 @@ class Signup extends Component {
         if (this.state.redirectToReferrer || sessionStorage.getItem('userData')) {
             return (<Redirect to={'/home'} />)
         }
-        const { email, name, password, passwordConfirmed, errorMessage, emailError, usernameError, passwordError, passwordConfirmedError } = this.state;
+        const { email, name, password, passwordConfirmed, errorMessage, emailError, nameError, passwordError, passwordConfirmedError } = this.state;
         return (
             <div className="card col-12">
                 <article className="card-body">
                     <h4 className="card-title mt-3 text-center">Create Account</h4>
-                    <form onSubmit={this.requestData}>
+                    <form onSubmit={this.signupLocal}>
                         <div className="form-group input-group">
                             <div className="input-group-prepend">
                                 <span className="input-group-text">
                                     <FaEnvelope />
                                 </span>
                             </div>
-                            <input type="text" name="email" className="form-control" placeholder="Email" onChange={this.onChange} onBlur={this.validateOne} autoFocus={false} required />
+                            <input type="text" name="email" className="form-control" placeholder="Email" onChange={this.handleChange} onBlur={this.validateOne} autoFocus={false} required />
                         </div>
                         <div className="error-message">
                             <p>{emailError}</p>
                         </div>
                         <div className="form-group input-group">
                             <div className="input-group-prepend">
-                                <span className="input-group-text"><FaUser /></span> </div><input type="text" name="username" placeholder="Username" className="form-control" onChange={this.onChange} onBlur={this.validateOne} autoFocus={false} required />
+                                <span className="input-group-text"><FaUser /></span> </div><input type="text" name="name" placeholder="Username" className="form-control" onChange={this.handleChange} onBlur={this.validateOne} autoFocus={false} required />
                         </div>
-                        <div className="error-message"><p>{usernameError}</p></div>
+                        <div className="error-message"><p>{nameError}</p></div>
                         <div className="form-group input-group">
                             <div className="input-group-prepend">
                                 <span className="input-group-text">
                                     <FaLock />
                                 </span>
                             </div>
-                            <input type="password" className="form-control" name="password" placeholder="Password" onChange={this.onChange} autoFocus={false} required onBlur={this.validateOne} />
+                            <input type="password" className="form-control" name="password" placeholder="Password" onChange={this.handleChange} autoFocus={false} required onBlur={this.validateOne} />
                         </div>
                         <div className="error-message"><p>{passwordError}</p></div>
                         <div className="form-group input-group">
@@ -178,13 +198,13 @@ class Signup extends Component {
                                     <FaLock />
                                 </span>
                             </div>
-                            <input type="password" className="form-control" name="re-password" placeholder="Repeat password" onChange={this.onChange} onBlur={this.validateOne} autoFocus={false} required />
+                            <input type="password" className="form-control" name="re-password" placeholder="Repeat password" onChange={this.handleChange} onBlur={this.validateOne} autoFocus={false} required />
 
                         </div>
                         <div className="error-message"><p>{passwordConfirmedError}</p></div>
 
                         <div className="form-group input-group">
-                            <input type="submit" className="btn btn-block btn-primary" value="Sign Up" onClick={this.signupTest} /> </div>
+                            <input type="submit" className="btn btn-block btn-primary" value="Sign Up" onClick={this.signupLocal} /> </div>
                         {/* <p className="text-center">Have an account? <a href="/">Log In</a></p> */}
                     </form>
                 </article>

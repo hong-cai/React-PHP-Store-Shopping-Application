@@ -3,7 +3,7 @@ import Product from './Product';
 import { NotFound } from '../NotFound';
 import { Loader } from '../Loader';
 //import {storeProducts} from '../data';
-import { ProductConsumer } from '../../context';
+import { ProductConsumer } from '../../ProductContext';
 
 export default (props) => {
     const { } = props;

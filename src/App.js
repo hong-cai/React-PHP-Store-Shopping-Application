@@ -5,7 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './components/NavBar/Navbar';
 import Products from './components/Products/Products';
 import Cart from './components/Cart/Cart';
-import Modal from './components/Modal';
+import AddToCartModal from './components/Modals/AddToCartModal';
+import LoginConfirmModal from './components/Modals/LoginConfirmModal';
 import Home from './Home';
 import About from './About';
 import Account from './Auth/Account';
@@ -13,7 +14,7 @@ import Error from './Error';
 import Details from './components/Products/Details';
 import Shop from './Shop';
 import Default from './components/Default';
-import { ProductProvider } from './context';
+import { ProductProvider } from './ProductContext';
 
 
 class App extends React.Component {
@@ -33,7 +34,8 @@ class App extends React.Component {
             <Route exact path='/products/:postName' component={Details} />
             <Route component={Default} />
           </Switch>
-          <Modal />
+          <AddToCartModal />
+          {/* <LoginConfirmModal /> */}
         </ProductProvider>
       </React.Fragment>
     )

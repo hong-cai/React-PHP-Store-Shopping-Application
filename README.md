@@ -1,91 +1,63 @@
-# React PHP Ecommerce Application created by
+# React Ecommerce Application created with
 
-- Bootstrap,
-- Context,
-- React,
-- PHP,
-- Mysql,
+- Bootstrap
+- React JS
+- ContextAPI
+- Styled Component
 
-### Image here
+Demo: [https://hong-cai.github.io/React-Store-Shopping-Application/#/](https://hong-cai.github.io/React-Store-Shopping-Application/#/)
+
+### Screenshots
 
 ### Features
 
-     - Login/ Logout / Account
+     - Products Display
+     - Quick Cart Editing
+     - Shopping Cart Summary
+     - Products Filter
+     - Login/Signup/Logout
+     - Auto Scrolling Carousel
+     - Paypal Method
+     -
 
-### Sitemap
+### Main functionalities:
+
+- Design Shopping Cart Using Styled Component/HTML/CSS
+- Implement React Components For Product List, Filter, Cart
+- Managing Component State using Context API
+- Add Routes using React-Routers
+- Publish Project on Github page
+- Google Authentication
+
+### Sitemap (Main Components)
+
+##### \* Happening now
 
     ├── Home
+    │   └── Automatic Products Carousel
     │
-    ├── Social Media Links
-    │   ├── Twitter
-    │   ├── Instagram
-    │   └── Facebook
+    ├── Shop
+    │   ├── Products Filter
+    │   └── Unlimited Products Scrolling *
     │
-    ├── Shop Categories
-    │   ├── Mens
-    │   │   ├── T-Shirts
-    │   │   └── Caps
-    │   │
-    │   ├── Womans
-    │   │
-    │   │
-    │   └── News
-    │       └── Any
+    ├── About
+    │   └── Simple Textblock
     │
-    ├── About Us
-    │   └── Out Story
-    │
-    ├── Contact
-    │   ├── Info/Form
-    │   ├── Terms
-    │   └── FAQ
+    ├── Products
+    │   └── Productslist
     │
     ├── Account
-    │   ├── Profile
-    │   ├── Payment Methods
-    │   ├── Saved Address
-    │   ├── Order History
-    │   └── Password
-    │
-    ├── Forms
     │   ├── Login
-    │   ├── Register
-    │   ├── Forgot Password
-    │   └── Contact
+    │   ├── Signup
+    │   ├── Google Authentication *
+    │   └── Forget Password       *
     │
     └── Cart / Checkout
-        ├── Cart Overview
-        ├── Shipping Address
-        ├── Billing Details
-        ├── Payment Method
-        └── Order Summary
+        ├── Cart Modification/Overview
+        ├── Order Summary
+        ├── Billing/Tax Details
+        └── Paypal Method
 
-# Build ECommerce Shopping Cart by React & Redux 2020 Edition
-
-Demo: https://reactredux-shoppingcart.herokuapp.com/
-
-[Get 90% Discount On This Course At Udemy](https://codingwithbasir.com/udemy-shopping-cart)
-
-## What you’ll learn
-
-- Design Shopping Cart Using HTML and CSS
-- Implement React Components For Product List, Filter, Cart
-- Managing Component State using Redux, React-Redux and - Redux-Thunk
-- Creating Animations Using React-Reveal and Add Routes using React-Routers
-- Build Backend using Node, Express, MongoDB and Mongoose
-- Publish Project on the Heroku and MongoDB Atlas
-
-## Are there any course requirements or prerequisites?
-
-- Basic HTML and CSS
-- Basic JavaScript
-
-## Who this course is for:
-
-- Javascript developers
-- Web Developers
-- Freelancers
-- Programming Students
 
 ## Table Of Content
 
@@ -127,7 +99,9 @@ Demo: https://reactredux-shoppingcart.herokuapp.com/
       6. Add header, main and footer
       7. Update index.css to add grid
    4. Project Development Workflow
+
       1. Create Google Spreadsheet
+
       2. Add columns Feature, Description, State, and Duration
       3. Enter Products Component, Show list of products, Open, 2
       4. Add Time ? Hours, Rate 30 USD/Hours, Cost ? USD

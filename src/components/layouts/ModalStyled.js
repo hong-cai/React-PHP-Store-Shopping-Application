@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const ModalStyled = styled.div`
 position:fixed;
+z-index:5;
 top:0;
 left:0;
 right:0;
@@ -12,4 +13,4 @@ align-items:center;
 justify-content:center;
 `
 
-export default ModalStyled
+export default ModalStyled;

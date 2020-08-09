@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import ButtonStyled2 from "../layouts/ButtonStyled2";
 import { SaleDiscount } from '../Sales/SaleDiscount';
-import { ProductContext } from '../../context';
+import { ProductContext } from '../../ProductContext';
 
 
 export const FeaturedProduct = (props) => {

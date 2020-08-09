@@ -7,7 +7,7 @@ import { SalesTimer } from './sandbox/SalesTimer';
 import { DateTimer } from './sandbox/DateTimer';
 import ClearTimerFunc from './sandbox/ClearTimerFunc';
 import Carousel from './sandbox/Carousel';
-import { ProductProvider } from './context';
+import { ProductProvider } from './ProductContext';
 import Dashboard from './sandbox/TestAdmin/Dashboard';
 // import Chart from './sandbox/TestAdmin/Chart';
 // import Deposits from './sandbox/TestAdmin/Deposits';

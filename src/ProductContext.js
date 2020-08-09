@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 /* Directly Import An Array */
 import { storeProducts, defaultProduct } from './data';
+import PropTypes from 'prop-types';
 import { log } from 'util';
 import axios from 'axios';
 
@@ -30,6 +31,7 @@ class ProductProvider extends Component {
             /*Modal for Add To Cart button*/
             modalOpen: false,
             modalProduct: defaultProduct,
+            modalContent: 'AddToCartModal',
 
             /*Cart summary*/
             cartSubTotal: 0,
@@ -56,14 +58,16 @@ class ProductProvider extends Component {
 
             /*Login State*/
             loggedIn: false,
-            user: [
+            users: [
                 {
                     id: 1,
+                    name: 'aaaa',
                     email: 'aaaa@test.com',
                     password: 'aaaa'
                 },
                 {
                     id: 2,
+                    name: 'bbbb',
                     email: 'bbbb@test.com',
                     password: 'bbbb'
                 },
@@ -74,6 +78,14 @@ class ProductProvider extends Component {
     /****************************
      * Login/Validation/Logout
      * ************************** */
+    //Handle  Signup:
+    handleSignup = (userData) => {
+        let oldUsers = this.state.users;
+        let newUsers = [...oldUsers, userData]
+        this.setState({
+            users: newUsers
+        })
+    }
 
     // Login user
     handleLogin = (userData) => {
@@ -160,7 +172,6 @@ class ProductProvider extends Component {
         let oneProduct = this.getProduct(tempCart, id) ? this.getProduct(tempCart, id) : this.getProduct(tempProducts, id);
         let count = ++oneProduct.count;
         oneProduct.inCart = true;
-        console.log(oneProduct);
         let price = parseFloat(oneProduct.price);
         if (oneProduct.salePrice !== '') {
             price = parseFloat(oneProduct.salePrice)
@@ -631,7 +642,53 @@ class ProductProvider extends Component {
         )
     }
 }
+ProductProvider.propTypes = {
+    pokemons: PropTypes.arrayOf(PropTypes.object),
+    users: PropTypes.shape({
+        name: PropTypes.string,
+        id: PropTypes.number,
+        email: PropTypes.string.isRequired,
+        password: PropTypes.string.isRequired,
+    }),
 
+    products: PropTypes.arrayOf(PropTypes.object),
+    cart: PropTypes.arrayOf(PropTypes.object),
+
+    /*Loading and limited products list*/
+    loading: PropTypes.bool,
+    limit: PropTypes.number,
+    page: PropTypes.number,
+
+    /*FeaturedProducts on Home page*/
+    featuredProducts: PropTypes.arrayOf(PropTypes.object),
+    postName: PropTypes.string,
+    modalOpen: PropTypes.bool,
+    cartSubTotal: PropTypes.number,
+    cartTax: PropTypes.number,
+    total: PropTypes.number,
+
+    /*Filters configuration*/
+    filteredProducts: PropTypes.arrayOf(PropTypes.object),
+    category: PropTypes.string,
+    price: PropTypes.number,
+    maxPrice: PropTypes.number,
+    minPrice: PropTypes.number,
+    search: PropTypes.string,
+
+    /*On-sale tag*/
+    onSale: PropTypes.bool,
+
+    /*Checkboxes for cart products*/
+    checkoutCart: PropTypes.arrayOf(PropTypes.object),
+    includeId: PropTypes.arrayOf(PropTypes.object),
+
+    /*Cart summary on hover*/
+    cartHover: PropTypes.bool,
+
+    /*Login State*/
+    loggedIn: PropTypes.bool,
+
+}
 const ProductConsumer = ProductContext.Consumer;
 export { ProductProvider, ProductConsumer, ProductContext };
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FeaturedWrapper from '../components/layouts/FeaturedWrapper';
 import { Spring } from 'react-spring/renderprops';
-import { ProductConsumer, ProductContext } from '../context';
+import { ProductConsumer, ProductContext } from '../ProductContext';
 import range from "lodash/range";
 import CarouselProduct from './CarouselProduct';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';

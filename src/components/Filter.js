@@ -1,6 +1,6 @@
 import React from 'react';
 import { useContext } from 'react';
-import { ProductContext } from '../context';
+import { ProductContext } from '../ProductContext';
 import PropTypes from 'prop-types';
 import ButtonStyled2 from '../components/layouts/ButtonStyled2';
 

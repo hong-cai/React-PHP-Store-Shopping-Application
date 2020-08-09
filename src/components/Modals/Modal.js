@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { ProductConsumer } from '../context';
-import ModalStyled from './layouts/ModalStyled';
-import ButtonStyled from './layouts/ButtonStyled';
-import Textblock from './Textblock';
+import { ProductConsumer } from '../../ProductContext';
+import ModalStyled from '../layouts/ModalStyled';
+import ButtonStyled from '../layouts/ButtonStyled';
+import Textblock from '../Textblock';
 import { AiOutlineClose } from 'react-icons/ai';
-import FeaturedProducts from './FeaturedProducts/FeaturedProducts';
+import FeaturedProducts from '../FeaturedProducts/FeaturedProducts';
+import AddToCartModal from './AddToCartModal';
 
 
 export default class Modal extends Component {
@@ -13,9 +14,8 @@ export default class Modal extends Component {
         return (
             <ProductConsumer>
                 {value => {
-                    const { modalOpen, toggleModalOpen, toggleModalClose } = value;
+                    const { modalOpen, toggleModalClose } = value;
                     const { title, price, id, images, postName } = value.modalProduct;
-                    // console.log(value);
                     if (modalOpen === false) {
                         return null;
                     } else {
@@ -43,7 +43,8 @@ export default class Modal extends Component {
                                     </span>
                                 </div>
 
-                            </ModalStyled>)
+                            </ModalStyled>
+                        )
                     }
 
                 }}

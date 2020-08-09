@@ -4,7 +4,7 @@ import ButtonStyled3 from '../layouts/ButtonStyled3';
 import { Link } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
 import { BackToShopBtn } from '../BackToShopBtn';
-import { ProductConsumer, ProductContext } from '../../context';
+import { ProductConsumer, ProductContext } from '../../ProductContext';
 
 import PropTypes from 'prop-types'
 

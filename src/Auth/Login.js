@@ -9,13 +9,11 @@ class Login extends Component {
             email: '',
             password: '',
             emailError: '',
-            passwordError: ''
+            passwordError: '',
+            loginErrors: ''
             // redirectToReferrer: false
         };
     }
-
-
-
 
 
     loginState = () => {
@@ -48,8 +46,13 @@ class Login extends Component {
         }).then(json => console.log(json));
     }
 
+    loginLocal = (e) => {
+        e.preventDefault();
+        console.log('clicked');
 
-    login = (e) => {
+    }
+
+    loginRemote = (e) => {
         e.preventDefault();
         if (this.state.email && this.state.password) {
             this.SendHttpRequest('login', 'POST', this.state)
@@ -124,12 +127,13 @@ class Login extends Component {
             <div className="card col-12">
                 <article className="card-body">
                     <h4 className="card-title mt-3 text-center">Login</h4>
-                    <p>
+                    {/* REMIND:ADD GOOGLE AUTHENTICATION */}
+                    {/* <p>
                         <a href="/" className="btn btn-block btn-google"> <i className="fab fa-google-f"></i> &nbsp; Login via google</a>
-                    </p>
-                    <p className="divider-text">
+                    </p> */}
+                    {/* <p className="divider-text">
                         <span className="bg-light">OR</span>
-                    </p>
+                    </p> */}
                     <form>
                         <div className="form-group input-group">
                             <div className="input-group-prepend">
@@ -151,7 +155,8 @@ class Login extends Component {
                         <div className="error-message"><p>{passwordError}</p></div>
 
                         <div className="form-group input-group">
-                            <input type="submit" className="btn btn-block btn-primary" value="Login" onClick={this.loginTest} /> </div>
+                            <input type="submit" className="btn btn-block btn-primary" value="Login" onClick={this.loginLocal} /> </div>
+                        {/* REMIND:ADD FORGET PASSWORD PAGE */}
                         {/* <div className="form-group input-group">
                             <input type="submit" className="btn m-auto" value="Forget Password?" onClick={this.resetPass} /> </div> */}
                     </form>
