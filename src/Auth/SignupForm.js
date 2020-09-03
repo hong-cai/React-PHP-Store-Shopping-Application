@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { FaEnvelope, FaUser, FaLock } from 'react-icons/fa';
 import { TiTick } from 'react-icons/ti';
 import axios from 'axios';
+import uuid from 'uuid';
 
 class Signup extends Component {
     constructor(props) {
@@ -23,14 +24,8 @@ class Signup extends Component {
 
     signupLocal = (e) => {
         e.preventDefault();
-        console.log('to update users');
-        const {
-            email, password, passwordConfirmed, name
-        } = this.state;
-        const isValid = this.validateOne();
-        if (isValid) {
+        console.log();
 
-        };
     }
 
 
@@ -108,7 +103,7 @@ class Signup extends Component {
         input[e.target.name] = e.target.value;
         this.setState({
             input
-        });
+        }, () => { console.log(this.state.input) });
     }
 
     //function to check field
@@ -161,12 +156,12 @@ class Signup extends Component {
         if (this.state.redirectToReferrer || sessionStorage.getItem('userData')) {
             return (<Redirect to={'/home'} />)
         }
-        const { email, name, password, passwordConfirmed, errorMessage, emailError, nameError, passwordError, passwordConfirmedError } = this.state;
+        const { email, name, password, passwordConfirmed, emailError, nameError, passwordError, passwordConfirmedError } = this.state;
         return (
             <div className="card col-12">
                 <article className="card-body">
                     <h4 className="card-title mt-3 text-center">Create Account</h4>
-                    <form onSubmit={this.signupLocal}>
+                    <form method="post" onSubmit={this.signupLocal}>
                         <div className="form-group input-group">
                             <div className="input-group-prepend">
                                 <span className="input-group-text">
@@ -199,12 +194,14 @@ class Signup extends Component {
                                 </span>
                             </div>
                             <input type="password" className="form-control" name="re-password" placeholder="Repeat password" onChange={this.handleChange} onBlur={this.validateOne} autoFocus={false} required />
-
                         </div>
                         <div className="error-message"><p>{passwordConfirmedError}</p></div>
+                        {/* <div className="form-group input-group d-none">
+                            <input type="id" className="form-control" name="id" onChange={this.handleChange} autoFocus={true} required />
+                        </div> */}
 
                         <div className="form-group input-group">
-                            <input type="submit" className="btn btn-block btn-primary" value="Sign Up" onClick={this.signupLocal} /> </div>
+                            <input type="submit" className="btn btn-block btn-primary" value="Sign Up" /> </div>
                         {/* <p className="text-center">Have an account? <a href="/">Log In</a></p> */}
                     </form>
                 </article>

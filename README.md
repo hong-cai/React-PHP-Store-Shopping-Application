@@ -1,4 +1,6 @@
-# React Ecommerce Application created with
+# React Ecommerce Application 
+
+### Created with
 
 - Bootstrap
 - React JS
@@ -7,7 +9,6 @@
 
 Demo: [https://hong-cai.github.io/React-Store-Shopping-Application/#/](https://hong-cai.github.io/React-Store-Shopping-Application/#/)
 
-### Screenshots
 
 ### Features
 
@@ -18,20 +19,22 @@ Demo: [https://hong-cai.github.io/React-Store-Shopping-Application/#/](https://h
      - Login/Signup/Logout
      - Auto Scrolling Carousel
      - Paypal Method
-     -
 
 ### Main functionalities:
 
 - Design Shopping Cart Using Styled Component/HTML/CSS
+- Login/Registration Form Validation
 - Implement React Components For Product List, Filter, Cart
 - Managing Component State using Context API
 - Add Routes using React-Routers
+- Sample users list using github user API
 - Publish Project on Github page
 - Google Authentication
+- Unlimited list loading
 
 ### Sitemap (Main Components)
 
-##### \* Happening now
+##### \* Happening soon
 
     ├── Home
     │   └── Automatic Products Carousel
@@ -50,6 +53,7 @@ Demo: [https://hong-cai.github.io/React-Store-Shopping-Application/#/](https://h
     │   ├── Login
     │   ├── Signup
     │   ├── Google Authentication *
+    │   ├── Sample users list     *
     │   └── Forget Password       *
     │
     └── Cart / Checkout
@@ -64,84 +68,48 @@ Demo: [https://hong-cai.github.io/React-Store-Shopping-Application/#/](https://h
 1. Introduction
 
    1. Introduction
-      1. Fully-Functional Shopping Cart
-      2. Instant Feedback
-      3. Animated and Intuitive Design
+      1. Fully-Functional Shopping Cart(Select Multiple/None Items, Calculate Tax,Remove Items...)
+      2. Easily Edited Hover Cart(Edit Order Number,Remove Item...)
+      3. Automatic Vertically Scrolling Carousel
       4. List Products
-      5. Sort Products By Price High or Low
-      6. Filter Products by Size
-      7. Open Modal By Click on Product
-      8. Add Product To Cart using Animation
-      9. Handle Multiple Click By Adding More Items
-      10. Remove Product
-      11. Show Checkout Form
-      12. Create Order with user friendly id
-      13. Admin Section to see list of products
-      14. Using postman to add or remove products and orders
-   2. Tools and Technologies
+      5. Filter Products by Search, Price,Categories,Onsale
+      6. Open Product Details Page by Click on The Product
+      7. Add To Cart and Open Modal By Click on Product
+      8. Show Checkout Form
+
+   2. Toolsets and Technologies
       1. JavaScript (arrow functions, array functions, spread Operators, ...)
-      2. React (react-touter-dom, react-reveal, react-modal)
-      3. Redux (react-redux, redux-thunk)
-      4. Node (express, body-parser, Environment Variables, nodemon)
-      5. MongoDB ( mongoose, shortid)
-      6. VS Code (ES6 Snippets, ES7 React Extension, ESLint Extension,CSS Peek)
-      7. Chrome ( React Developer Tools, Redux Developer Tools)
-      8. Git (create repo, commit, remote, create and push branch)
-      9. Github (create repo, connect to local repo, pull request and merge)
-      10. Postman ( send get, post, put and delete requests to apis)
-      11. Deployment ( Heroku, MongoDB Atlas Cloud)
-   3. Create React App
-      1. Open VS Code and open terminal
-      2. cd Desktop
-      3. npx create-react-app react-shopping-cart
-      4. Remove unused files
-      5. Convert App.js Class Component
-      6. Add header, main and footer
-      7. Update index.css to add grid
-   4. Project Development Workflow
+      2. React (react-touter-dom,hooks)
+      3. Context API 
+      4. Styled Components 
+      5. PropTypes
+      6. VS Code (ES6 Snippets, ESLint Extension,CSS Peek, Code Formatter...)
+      7. Git (create repo, commit, remote, create and push branch)
+      8. Github (create repo, connect to local repo, pull request and merge)
+      9.  Deployment (Github Pages)
 
-      1. Create Google Spreadsheet
+   3. Project Development Workflow
+       1. Github
+         1. Create new repository
+         2. Add it as remote repository in VS Code
+         3. Commit changes
+         4.  Push changes on github
+         5.  Create a new branch feature-1 for test the workflow
+         6.  Add "// branch feature 1" in App.js Line 1
+         7.  Commit with message "feature 1"
+         8.  Click publish changes
+         9.  Open repository page on github
+         10. Create pull request
+         11. Merge pull request
+         12. In VS Code switch to master and Sync changes
+       2. React Components
+          1. Products
+            1.  Download the product list as a json with all product information
+            2.  Modified the json with a sample product object for test purpose and an array of product objects
 
-      2. Add columns Feature, Description, State, and Duration
-      3. Enter Products Component, Show list of products, Open, 2
-      4. Add Time ? Hours, Rate 30 USD/Hours, Cost ? USD
-      5. Add All Features
-      6. Create Github account
-      7. Create new repository
-      8. Add it as remote repository in VS Code
-      9. Commit changes
-      10. Push changes on github
-      11. Start => create new feature Feature 1 in google spreadsheet
-      12. Create a new branch feature-1 for test the workflow
-      13. Add "// branch feature 1" in App.js Line 1
-      14. Commit with message "feature 1"
-      15. Click publish changes
-      16. Open repository page on github
-      17. Create pull request
-      18. Merge pull request
-      19. In VS Code switch to master and Sync changes
-      20. End => Loop from step 11 for next feature
-
-2. React
-
-   1. Products Component
-      1. Create data.json {products:[{_id, title, ...}]
-      2. Update App.js to import data.json
-      3. div.content {flex, wrap}
-      4. div.main {flex: 3 60rem}
-      5. div.sidebar {flex: 1 20rem;}
-      6. Create components/Products.js component
-      7. Add it to div.main in App.js and set products props
-      8. ul.products {flex,center, center,warp, p:0,m:0, style:none}
-      9. this.props.products.map(p => li.key={p.\_id} {flex, p:1, m:1, none,h:47}
-      10. div.product { flex, column, space-between, h:100%}
-      11. a href="#" > img {max-width, max-height:37} + p {p.title}
-      12. div.product-price > div.product.price + button.button.primary Add to cart
-      13. product-price {flex, space-between, center}
-      14. div {p.price} flex: 1; align: center; size: 2rem
-      15. button.button.primary Add To Cart
-   2. Filter Component
-      1. Create components/Filter.js
+          2. Automatic Scrolling Carousel
+          3. Filters
+         1. Create components/Filter.js
       2. Add it above Products component in App.js
       3. Update Filter.js render
       4. div.filter {flex, wrap, p,m:1rem, border-bottom: .1rem}
@@ -155,7 +123,37 @@ Demo: [https://hong-cai.github.io/React-Store-Shopping-Application/#/](https://h
       12. onChange= this.props.filterProducts(e.t.value)
       13. option "" ALL, XS, S, M, L, XL, XXL
       14. App.js
-      15. Add Filter Component
+      15. Add Filter Component. 
+          5. Navbar
+          6. Hover Shopping Cart
+          7. Shopping Cart
+          8. Product Details 
+          9. Add To Cart Modal
+          10. Layouts 
+          11. Login/Register Validation
+          12. Sample Github User List
+
+
+2. React
+
+   1. Products Component
+      1. Create data.json {products:[{_id, title, ...}]
+      2. Update App.js to import data.json
+      3. div.content {flex, wrap}
+      4. div.main {flex: 3 60rem}
+      5. div.sidebar {flex: 1 20rem;}
+      6. Create components/Products.js component
+      7. Add it to div.main in App.js and 
+      8. ul.products {flex,center, center,warp, p:0,m:0, style:none}
+      9. this.props.products.map(p => li.key={p.\_id} {flex, p:1, m:1, none,h:47}
+      10. div.product { flex, column, space-between, h:100%}
+      11. a href="#" > img {max-width, max-height:37} + p {p.title}
+      12. div.product-price > div.product.price + button.button.primary Add to cart
+      13. product-price {flex, space-between, center}
+      14. div {p.price} flex: 1; align: center; size: 2rem
+      15. button.button.primary Add To Cart
+   2. Filter Component
+      
    3. Cart Component
       1. Set Active Task Management Spreadsheet
       2. Create branch cart-component

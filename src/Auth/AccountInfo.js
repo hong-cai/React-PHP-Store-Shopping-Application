@@ -1,12 +1,29 @@
 import React, { useContext } from 'react';
-import { ProductContext } from '../ProductContext';
+import { ProductConsumer } from '../ProductContext';
+import Title from '../components/Title';
+const AccountInfo = () => {
 
-export const AccountInfo = () => {
-    const loginUser = useContext(ProductContext);
-    const { loggedIn, user } = loginUser;
+
+
     return (
-        <div>
-            <h3>Welcome {user}</h3>
+        <div className="container">
+            <div className="row">
+                <Title name="User Account" />
+                <ProductConsumer>
+                    {value => {
+                        const { user } = value;
+                        return (
+                            <div className="col-10 col-md-6 border-info">
+                                <h3>Welcome {user.name}</h3>
+                                <h3>ID: {user.id}</h3>
+                                <h3>Email:{user.email}</h3>
+                            </div>
+                        )
+                    }}
+
+                </ProductConsumer>
+            </div>
         </div>
     )
 }
+export default AccountInfo

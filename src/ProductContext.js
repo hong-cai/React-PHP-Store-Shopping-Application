@@ -58,6 +58,8 @@ class ProductProvider extends Component {
 
             /*Login State*/
             loggedIn: false,
+            alert: null,
+            user: {},
             users: [
                 {
                     id: 1,
@@ -78,6 +80,24 @@ class ProductProvider extends Component {
     /****************************
      * Login/Validation/Logout
      * ************************** */
+
+    validateUser = (userData) => {
+        const users = this.state.users;
+        let matchEmail = users.find(user => user.email === userData.email);
+        let matchPass = users.find(user => user.password === userData.password);
+        if (!matchEmail || !matchPass) {
+            this.setState({
+                alert: { msg: 'Email or password does not match the record. Please try again.', type: 'danger' },
+                loggedIn: false,
+            });
+        } else if (matchEmail && matchPass) {
+            this.setState({
+                alert: { msg: 'Login Success', type: 'success' },
+                loggedIn: true,
+                user: userData,
+            }, () => { this.saveUser(userData) })
+        }
+    }
     //Handle  Signup:
     handleSignup = (userData) => {
         let oldUsers = this.state.users;
@@ -88,30 +108,24 @@ class ProductProvider extends Component {
     }
 
     // Login user
-    handleLogin = (userData) => {
-        sessionStorage.userData ?
-            this.setState({
-                loggedIn: true,
-                user: userData
-            }) :
-            this.setState({
-                loggedIn: false,
-                user: {}
-            })
-    }
+    loginLocalData = (userData) => {
+        console.log('here in context');
+        this.validateUser(userData);
+    };
+
     // Logout user
     handleLogout = () => {
-        if (sessionStorage.getItem('userData')) {
+        if (sessionStorage.getItem('loggedInUser')) {
             this.setState({
                 loggedIn: false,
                 user: {}
-            }, sessionStorage.removeItem('userData'))
+            }, sessionStorage.removeItem('loggedInUser'))
         };
     }
 
     //Check if user has logged in
     checkLoginStatus = () => {
-        if (!sessionStorage.getItem('userData')) {
+        if (!sessionStorage.getItem('loggedInUser')) {
             this.setState({
                 loggedIn: false,
                 user: {}
@@ -119,9 +133,14 @@ class ProductProvider extends Component {
         } else {
             this.setState({
                 loggedIn: true,
-                user: sessionStorage.getItem('userData')
-            }, localStorage.setItem('userData'))
+                user: sessionStorage.getItem('loggedInUser')
+            })
         }
+    }
+
+    //Save user in the sessionStorage
+    saveUser = (userData) => {
+        sessionStorage.setItem('loggedInUser', JSON.stringify(userData));
     }
 
     /****************************
@@ -632,9 +651,11 @@ class ProductProvider extends Component {
                     findSalePrice: this.findSalePrice,
                     selectAll: this.selectAll,
                     selectOneItem: this.selectOneItem,
-                    handleLogin: this.handleLogin,
+                    loginLocalData: this.loginLocalData,
+                    handleLogout: this.handleLogout,
+                    checkLoginStatus: this.checkLoginStatus,
                     handleCount: this.handleCount,
-                    handleProductDetail: this.handleProductDetail
+                    handleProductDetail: this.handleProductDetail,
                 }}>
                     {this.props.children}
                 </ProductContext.Provider>
@@ -643,12 +664,15 @@ class ProductProvider extends Component {
     }
 }
 ProductProvider.propTypes = {
-    pokemons: PropTypes.arrayOf(PropTypes.object),
     users: PropTypes.shape({
         name: PropTypes.string,
         id: PropTypes.number,
-        email: PropTypes.string.isRequired,
-        password: PropTypes.string.isRequired,
+        email: PropTypes.string,
+        password: PropTypes.string,
+    }),
+    user: PropTypes.shape({
+        name: PropTypes.string,
+        email: PropTypes.string,
     }),
 
     products: PropTypes.arrayOf(PropTypes.object),
@@ -687,6 +711,26 @@ ProductProvider.propTypes = {
 
     /*Login State*/
     loggedIn: PropTypes.bool,
+
+    addOneItemToCart: PropTypes.func,
+    toggleModalOpen: PropTypes.func,
+    toggleModalClose: PropTypes.func,
+    incrementItems: PropTypes.func,
+    decrementItems: PropTypes.func,
+    clearCart: PropTypes.func,
+    removeItem: PropTypes.func,
+    taxTotal: PropTypes.func,
+    handleChange: PropTypes.func,
+    findDetails: PropTypes.func,
+    saveCartToStorage: PropTypes.func,
+    getCartFromStorage: PropTypes.func,
+    findSalePrice: PropTypes.func,
+    selectAll: PropTypes.func,
+    selectOneItem: PropTypes.func,
+    loginLocalData: PropTypes.func,
+    checkLoginStatus: PropTypes.func,
+    handleCount: PropTypes.func,
+    handleProductDetail: PropTypes.func
 
 }
 const ProductConsumer = ProductContext.Consumer;

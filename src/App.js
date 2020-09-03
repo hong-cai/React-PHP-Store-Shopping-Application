@@ -10,6 +10,8 @@ import LoginConfirmModal from './components/Modals/LoginConfirmModal';
 import Home from './Home';
 import About from './About';
 import Account from './Auth/Account';
+import AccountInfo from './Auth/AccountInfo';
+import User from './Auth/User';
 import Error from './Error';
 import Details from './components/Products/Details';
 import Shop from './Shop';
@@ -29,7 +31,9 @@ class App extends React.Component {
             {/* <Route path='/contact' component={Contact} /> */}
             <Route path='/shop' component={Shop} />
             <Route path='/cart' component={Cart} />
-            <Route path='/account' component={Account} />
+            <Route exact path='/user/details' component={AccountInfo} />
+            <Route exact path='/user' component={User} />
+            <Route exact path='/user/login' component={Account} />
             <Route exact path='/products' component={Products} />
             <Route exact path='/products/:postName' component={Details} />
             <Route component={Default} />

@@ -2,12 +2,17 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { SendHttpRequest } from '../services/SendHttpRequest';
 import { FaEnvelope, FaLock } from 'react-icons/fa';
+import { ProductConsumer, ProductContext } from '../ProductContext';
+import Alert from '../components/Alert';
+
 class Login extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            email: '',
-            password: '',
+            userData: {
+                email: '',
+                password: ''
+            },
             emailError: '',
             passwordError: '',
             loginErrors: ''
@@ -46,11 +51,11 @@ class Login extends Component {
         }).then(json => console.log(json));
     }
 
-    loginLocal = (e) => {
-        e.preventDefault();
-        console.log('clicked');
+    // loginLocal = (e) => {
+    //     e.preventDefault();
+    //     console.log('clicked');
 
-    }
+    // }
 
     loginRemote = (e) => {
         e.preventDefault();
@@ -89,7 +94,11 @@ class Login extends Component {
 
 
     onChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value });
+        let userData = this.state.userData;
+        userData[e.target.name] = e.target.value;
+        this.setState({
+            userData
+        });
     };
 
 
@@ -105,62 +114,63 @@ class Login extends Component {
                 emailError: errorMessage
             });
         };
-        if (target.name === "password") {
-            if (!emailCheck.test(target.value)) {
-                errorMessage += 'Please input a valid email';
-            }
-            this.setState({
-                emailError: errorMessage
-            });
-        };
-    }
+    };
 
     render() {
         // if (this.state.redirectToReferrer) {
         //     return (<Redirect to={'/cart'} />)
         // }
-        if (sessionStorage.getItem('userData')) {
-            return (<Redirect to={'/cart'} />)
-        }
+        // if (sessionStorage.getItem('userData')) {
+        //     return (<Redirect to={'/cart'} />)
+        // }
         const { emailError, passwordError } = this.state;
         return (
             <div className="card col-12">
-                <article className="card-body">
-                    <h4 className="card-title mt-3 text-center">Login</h4>
-                    {/* REMIND:ADD GOOGLE AUTHENTICATION */}
-                    {/* <p>
+                <ProductConsumer>
+                    {value => {
+                        const { loginLocalData, alert, loggedIn } = value;
+                        return (
+                            <article className="card-body">
+                                <h4 className="card-title mt-3 text-center">Login</h4>
+                                {alert !== '' && loggedIn === false ? <Alert alert={alert} /> : null}
+                                {/* REMIND:ADD GOOGLE AUTHENTICATION */}
+                                {/* <p>
                         <a href="/" className="btn btn-block btn-google"> <i className="fab fa-google-f"></i> &nbsp; Login via google</a>
                     </p> */}
-                    {/* <p className="divider-text">
+                                {/* <p className="divider-text">
                         <span className="bg-light">OR</span>
                     </p> */}
-                    <form>
-                        <div className="form-group input-group">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text">
-                                    <FaEnvelope />
-                                </span>
-                            </div>
-                            <input type="text" name="email" className="form-control" placeholder="Email" onChange={this.onChange} onBlur={this.validateLogin} autoFocus={false} required />
-                        </div>
-                        <div className="error-message"><p>{emailError}</p></div>
-                        <div className="form-group input-group">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text">
-                                    <FaLock />
-                                </span>
-                            </div>
-                            <input type="password" className="form-control" name="password" placeholder="Password" onChange={this.onChange} onBlur={this.validateLogin} autoFocus={false} required />
-                        </div>
-                        <div className="error-message"><p>{passwordError}</p></div>
+                                <form method="post">
+                                    <div className="form-group input-group">
+                                        <div className="input-group-prepend">
+                                            <span className="input-group-text">
+                                                <FaEnvelope />
+                                            </span>
+                                        </div>
+                                        <input type="text" name="email" className="form-control" placeholder="Email" onChange={this.onChange} onBlur={this.validateLogin} autoFocus={false} required />
+                                    </div>
+                                    <div className="error-message"><p>{emailError}</p></div>
+                                    <div className="form-group input-group">
+                                        <div className="input-group-prepend">
+                                            <span className="input-group-text">
+                                                <FaLock />
+                                            </span>
+                                        </div>
+                                        <input type="password" className="form-control" name="password" placeholder="Password" onChange={this.onChange} onBlur={this.validateLogin} autoFocus={false} required />
+                                    </div>
+                                    <div className="error-message"><p>{passwordError}</p></div>
 
-                        <div className="form-group input-group">
-                            <input type="submit" className="btn btn-block btn-primary" value="Login" onClick={this.loginLocal} /> </div>
-                        {/* REMIND:ADD FORGET PASSWORD PAGE */}
-                        {/* <div className="form-group input-group">
+                                    <div className="form-group input-group">
+                                        <input type="submit" className="btn btn-block btn-primary" value="Login" onClick={(e) => { e.preventDefault(); loginLocalData(this.state.userData) }} /> </div>
+                                    {/* REMIND:ADD FORGET PASSWORD PAGE */}
+                                    {/* <div className="form-group input-group">
                             <input type="submit" className="btn m-auto" value="Forget Password?" onClick={this.resetPass} /> </div> */}
-                    </form>
-                </article>
+                                </form>
+                            </article>
+                        )
+                    }}
+
+                </ProductConsumer>
             </div>
         );
     }

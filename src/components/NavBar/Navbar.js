@@ -64,10 +64,15 @@ const Navbar = (props) => {
                             {
                                 value => {
                                     let loginState = value.loggedIn;
-                                    const handleLogin = value.handleLogin;
+                                    const handleLogout = value.handleLogout;
                                     return (
-                                        < NavLink to={loginState ? '../cart' : '../account'} >
-                                            <ButtonStyled onClick={handleLogin} className="px-4 py-1 text-info">{loginState ? 'Logout' : 'Login'}</ButtonStyled>
+                                        < NavLink to={loginState ? '../user/details' : '../user/login'} >
+                                            <ButtonStyled className="px-4 py-1 text-info" onClick={
+                                                () => {
+                                                    loginState && handleLogout()
+                                                }
+                                            }
+                                            >{loginState ? 'Logout' : 'Login'}</ButtonStyled>
                                         </NavLink>
                                     )
                                 }
