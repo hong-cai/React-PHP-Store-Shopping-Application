@@ -18,17 +18,19 @@ export default class Carousel extends Component {
     }
 
     onNextClick = (length) => {
-        // if (this.state.activeIndex < length) {
-        this.setState(() => ({
-            activeIndex: this.state.activeIndex += 1
-        }));
-        // } else {
-        //     this.setState({ activeIndex: 0 })
-        // }
+        if (this.state.activeIndex < length - 4) {
+            clearInterval(this.timer);
+            this.setState(() => ({
+                activeIndex: this.state.activeIndex++
+            }));
+        } else {
+            clearInterval(this.timer);
+        }
     }
 
     onPrevClick(length) {
         if (this.state.activeIndex > 0) {
+
             this.setState({ activeIndex: this.state.activeIndex - 1 });
         } else {
             this.setState({ activeIndex: length })

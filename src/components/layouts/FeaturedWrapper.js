@@ -26,7 +26,7 @@ span {
 .horizontal-scroll-wrapper {
             /* background: pink; */
             width: 1000px;
-            height: 290px;          
+            height: 300px;          
             display:grid;
             place-items:center;
             /* overflow-x:auto; */
@@ -49,7 +49,7 @@ span {
         } 
         
         .horizontal-scroll-div img{
-            width:100px;
+            width:100%;
         }
         .horizontal-scroll-div .discount{
             display:none;

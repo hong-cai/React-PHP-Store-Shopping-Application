@@ -8,7 +8,7 @@ import { ProductContext, ProductConsumer } from '../../ProductContext';
 
 const Products = () => {
     return (
-        <><Title title=" main products" name="our" /><Textblock content="Best hygiene products for the hard time" /><ProductList /></>
+        <><Title title=" main products" name="our" /><Textblock content="Click to see the details of the product" /><ProductList /></>
     )
 }
 

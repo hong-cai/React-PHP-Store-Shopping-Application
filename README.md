@@ -1,4 +1,4 @@
-# React Ecommerce Application 
+# React Ecommerce Application
 
 ### Created with
 
@@ -8,7 +8,6 @@
 - Styled Component
 
 Demo: [https://hong-cai.github.io/React-Store-Shopping-Application/#/](https://hong-cai.github.io/React-Store-Shopping-Application/#/)
-
 
 ### Features
 
@@ -62,12 +61,12 @@ Demo: [https://hong-cai.github.io/React-Store-Shopping-Application/#/](https://h
         ├── Billing/Tax Details
         └── Paypal Method
 
-
 ## Table Of Content
 
 1. Introduction
 
    1. Introduction
+
       1. Fully-Functional Shopping Cart(Select Multiple/None Items, Calculate Tax,Remove Items...)
       2. Easily Edited Hover Cart(Edit Order Number,Remove Item...)
       3. Automatic Vertically Scrolling Carousel
@@ -78,61 +77,65 @@ Demo: [https://hong-cai.github.io/React-Store-Shopping-Application/#/](https://h
       8. Show Checkout Form
 
    2. Toolsets and Technologies
+
       1. JavaScript (arrow functions, array functions, spread Operators, ...)
       2. React (react-touter-dom,hooks)
-      3. Context API 
-      4. Styled Components 
+      3. Context API
+      4. Styled Components
       5. PropTypes
       6. VS Code (ES6 Snippets, ESLint Extension,CSS Peek, Code Formatter...)
       7. Git (create repo, commit, remote, create and push branch)
       8. Github (create repo, connect to local repo, pull request and merge)
-      9.  Deployment (Github Pages)
+      9. Deployment (Github Pages)
 
    3. Project Development Workflow
-       1. Github
-         1. Create new repository
-         2. Add it as remote repository in VS Code
-         3. Commit changes
-         4.  Push changes on github
-         5.  Create a new branch feature-1 for test the workflow
-         6.  Add "// branch feature 1" in App.js Line 1
-         7.  Commit with message "feature 1"
-         8.  Click publish changes
-         9.  Open repository page on github
-         10. Create pull request
-         11. Merge pull request
-         12. In VS Code switch to master and Sync changes
-       2. React Components
-          1. Products
-            1.  Download the product list as a json with all product information
-            2.  Modified the json with a sample product object for test purpose and an array of product objects
 
-          2. Automatic Scrolling Carousel
-          3. Filters
-         1. Create components/Filter.js
-      2. Add it above Products component in App.js
-      3. Update Filter.js render
-      4. div.filter {flex, wrap, p,m:1rem, border-bottom: .1rem}
-      5. filter-result {this.props.filteredProducts.length}
-      6. filter-sort {flex:1}
-      7. label Order select value=this.props.sort
-      8. onChange= this.props.sortProducts(e.t.value)
-      9. option lowestprice Lowest, ...
-      10. filter-size {flex:1}
-      11. label Filter select value=this.props.size
-      12. onChange= this.props.filterProducts(e.t.value)
-      13. option "" ALL, XS, S, M, L, XL, XXL
-      14. App.js
-      15. Add Filter Component. 
-          5. Navbar
-          6. Hover Shopping Cart
-          7. Shopping Cart
-          8. Product Details 
-          9. Add To Cart Modal
-          10. Layouts 
-          11. Login/Register Validation
-          12. Sample Github User List
+      1. Github
+      1. Create new repository
+      1. Add it as remote repository in VS Code
+      1. Commit changes
+      1. Push changes on github
+      1. Create a new branch feature-1 for test the workflow
+      1. Add "// branch feature 1" in App.js Line 1
+      1. Commit with message "feature 1"
+      1. Click publish changes
+      1. Open repository page on github
+      1. Create pull request
+      1. Merge pull request
+      1. In VS Code switch to master and Sync changes
+      1. React Components
 
+         1. Products
+         2. ContextAPI
+         3. Download the product list as a json with all product information
+         4. Modified the json with a sample product object for test purpose and an array of product objects
+
+         5. Automatic Scrolling Carousel
+         6. Filters
+         7. Create components/Filter.js
+         8. Add it above Products component in App.js
+         9. Update Filter.js render
+         10. div.filter {flex, wrap, p,m:1rem, border-bottom: .1rem}
+         11. filter-result {this.props.filteredProducts.length}
+         12. filter-sort {flex:1}
+         13. label Order select value=this.props.sort
+         14. onChange= this.props.sortProducts(e.t.value)
+         15. option lowestprice Lowest, ...
+         16. filter-size {flex:1}
+         17. label Filter select value=this.props.size
+
+      1. onChange= this.props.filterProducts(e.t.value)
+         1. option "" ALL, XS, S, M, L, XL, XXL
+         2. App.js
+         3. Add Filter Component.
+      1. Navbar
+      1. Hover Shopping Cart
+      1. Shopping Cart
+      1. Product Details
+      1. Add To Cart Modal
+      1. Layouts
+      1. Login/Register Validation
+      1. Sample Github User List
 
 2. React
 
@@ -143,7 +146,7 @@ Demo: [https://hong-cai.github.io/React-Store-Shopping-Application/#/](https://h
       4. div.main {flex: 3 60rem}
       5. div.sidebar {flex: 1 20rem;}
       6. Create components/Products.js component
-      7. Add it to div.main in App.js and 
+      7. Add it to div.main in App.js and
       8. ul.products {flex,center, center,warp, p:0,m:0, style:none}
       9. this.props.products.map(p => li.key={p.\_id} {flex, p:1, m:1, none,h:47}
       10. div.product { flex, column, space-between, h:100%}
@@ -153,7 +156,6 @@ Demo: [https://hong-cai.github.io/React-Store-Shopping-Application/#/](https://h
       14. div {p.price} flex: 1; align: center; size: 2rem
       15. button.button.primary Add To Cart
    2. Filter Component
-      
    3. Cart Component
       1. Set Active Task Management Spreadsheet
       2. Create branch cart-component
@@ -377,7 +379,7 @@ Demo: [https://hong-cai.github.io/React-Store-Shopping-Application/#/](https://h
       32. index.css
       33. style orders
 
-6. Deploy Website
+6. Deploy On Github Pages
    1. Create MongoDB Cloud Database
    2. Login to https://www.mongodb.com/cloud
    3. Add database user
